@@ -1,0 +1,16 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"> <!-- 用户按下滑块时的样式 -->
+        <shape android:shape="rectangle">
+            <solid android:color="#F44336"/> <!-- 滑块颜色 -->
+            <size android:width="50dp" android:height="50dp"/> <!-- 滑块的宽度和高度，正方形 -->
+            <corners android:radius="4dp"/> <!-- 圆角半径（如果需要圆角） -->
+        </shape>
+    </item>
+    <item> <!-- 滑块默认状态的样式 -->
+        <shape android:shape="rectangle">
+            <solid android:color="#F44336"/> <!-- 滑块颜色 -->
+            <size android:width="50dp" android:height="50dp"/> <!-- 滑块的宽度和高度，正方形 -->
+            <corners android:radius="4dp"/> <!-- 圆角半径（如果需要圆角） -->
+        </shape>
+    </item>
+</selector>
