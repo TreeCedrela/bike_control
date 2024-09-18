@@ -150,7 +150,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             throw new RuntimeException(e);
         }
 
-        polyline = aMap.addPolyline(new PolylineOptions().color(Color.BLUE)   // 轨迹线的颜色
+        polyline = aMap.addPolyline(new PolylineOptions().color(Color.parseColor("#11AEF7"))   // 轨迹线的颜色
                 .width(10f)          // 轨迹线的宽度
                 .geodesic(true));    // 使用大地曲线来计算最短路径
 

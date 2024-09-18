@@ -75,10 +75,12 @@
                         android:layout_weight="1">
 
 
-                        <Button
+                        <android.widget.Button
                             android:id="@+id/sport_record_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/blue"
+                            android:textColor="#FFFFFF"
                             android:text="@string/sport_record"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -124,11 +126,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <Button
+                        <android.widget.Button
                             android:id="@+id/blueprint_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/blueprint"
+                            android:background="@drawable/blue"
+                            android:textColor="#FFFFFF"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintRight_toRightOf="parent" />
@@ -261,7 +265,7 @@
                 android:layout_gravity="center"
                 tools:context=".MainActivity">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/startButton"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -276,7 +280,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/continueLastTime"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

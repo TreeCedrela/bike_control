@@ -28,15 +28,8 @@ import java.util.List;
 public class overActivity extends AppCompatActivity {
 
     private MapView mMapView;
-    private AMap aMap;
     private Polyline polyline;
     private final List<LatLng> pathPoints = new ArrayList<>();
-    private TextView DateTextView;
-
-    private TextView VAverageSpeed;
-    private TextView TimeView;
-    private TextView VAltitude;
-    private TextView VDistanceSum;
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
@@ -57,11 +50,11 @@ public class overActivity extends AppCompatActivity {
         float averageSpeed = getIntent().getFloatExtra(AverageSpeed, 0);
         float altitude = getIntent().getFloatExtra(Altitude, 0);
 
-        TimeView = findViewById(R.id.textView9);
-        VAverageSpeed=findViewById(R.id.average_speed);
-        DateTextView =findViewById(R.id.timeDate);
-        VAltitude = findViewById(R.id.altitude);
-        VDistanceSum=findViewById(R.id.distanceSum);
+        TextView timeView = findViewById(R.id.textView9);
+        TextView VAverageSpeed = findViewById(R.id.average_speed);
+        TextView dateTextView = findViewById(R.id.timeDate);
+        TextView VAltitude = findViewById(R.id.altitude);
+        TextView VDistanceSum = findViewById(R.id.distanceSum);
 
         VAverageSpeed.setText(String.format("%4.2f",averageSpeed));
         VAltitude.setText(String.format("%4.2f",altitude));
@@ -72,22 +65,22 @@ public class overActivity extends AppCompatActivity {
         int seconds_temp = seconds % 60;
 
         // 更新TextView
-        TimeView.setText(String.format("%02d:%02d", minutes, seconds_temp));
+        timeView.setText(String.format("%02d:%02d", minutes, seconds_temp));
 
 
         // 假设有一个TextView来显示日期
-        DateTextView.setText(formattedDate+" 骑行");
+        dateTextView.setText(formattedDate+" 骑行");
 
         mMapView = findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
-        aMap = mMapView.getMap();
+        AMap aMap = mMapView.getMap();
 
-        initMap(savedInstanceState,null,mMapView,aMap,new LatLonPoint(latitude,longitude));
+        initMap(savedInstanceState,null,mMapView, aMap,new LatLonPoint(latitude,longitude));
 
         // 初始化 Polyline
         polyline = aMap.addPolyline(new PolylineOptions()
-                .color(Color.BLUE)
+                .color(Color.parseColor("#11AEF7"))
                 .width(10f)
                 .geodesic(true));
 
@@ -123,7 +116,7 @@ public class overActivity extends AppCompatActivity {
                 if (index[0] < pathPoints.size()) {
                     polyline.setPoints(pathPoints.subList(0, index[0] + 1));
                     index[0]++;
-                    handler.postDelayed(this, 500);
+                    handler.postDelayed(this, 250);
                 }
             }
         };
