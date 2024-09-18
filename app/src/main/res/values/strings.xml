@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">bike</string>
+    <string name="gps_icon">GPS Icon</string>
+    <string name="v">时速 (km/h)</string>
+    <string name="gps">GPS</string>
+    <string name="bike_icon">Bike Icon</string>
+    <string name="begin">开始</string>
+    <string name="continue_last_times">继续上次</string>
+    <string name="distance">0.00</string>
+    <string name="description_distance">里程(km)</string>
+    <string name="description_average_speed">运动均速(km/h)</string>
+    <string name="description_sport_time">运动时间</string>
+    <string name="sport_time">00:00</string>
+    <string name="average_speed">0.00</string>
+    <string name="temperature">——</string>
+    <string name="description_temperature">温度(°C)</string>
+    <string name="heart_rate">——</string>
+    <string name="description_heart_rate">心率</string>
+    <string name="power">——</string>
+    <string name="description_power">功率(w)</string>
+    <string name="Cadence">——</string>
+    <string name="description_Cadence">踏频</string>
+    <string name="hour_speed">0.00</string>
+    <string name="description_hour_speed">时速(km/h)</string>
+    <string name="todo">TODO</string>
+    <string name="over">滑动结束</string>
+    <string name="name">用户名12123</string>
+    <string name="people">TODO</string>
+    <string name="bike">TODO</string>
+    <string name="date">2024年-08-16骑行</string>
+    <string name="_0_00">0.00</string>
+    <string name="km">里程(km)</string>
+    <string name="_speed">0.00</string>
+    <string name="km_h">匀速(km/h)</string>
+    <string name="_0">0</string>
+    <string name="_00_00">00:00</string>
+    <string name="time">时间</string>
+    <string name="m">爬升(m)</string>
+    <string name="clock">TODO</string>
+    <string name="cross">TODO</string>
+    <string name="mountain">hill</string>
+    <string name="flag">flag</string>
+    <string name="bicycle">TODO</string>
+    <string name="username">用户名12123</string>
+    <string name="month">8月份</string>
+    <string name="map">map</string>
+    <string name="sport">运动</string>
+    <string name="sport_record">运动记录</string>
+    <string name="bike_photo">TODO</string>
+    <string name="_arrow">arrow</string>
+    <string name="blueprint">蓝图</string>
+
+
+</resources>
