@@ -83,7 +83,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.amap.api.maps.MapView
-        android:id="@+id/bmapView"
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_weight="1"
@@ -98,7 +98,7 @@
         android:id="@+id/Top3"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintTop_toBottomOf="@+id/bmapView">
+        app:layout_constraintTop_toBottomOf="@+id/map">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/leftTop"
