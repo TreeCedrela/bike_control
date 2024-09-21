@@ -8,7 +8,9 @@ import static com.example.map.Util.ImageURI;
 import static com.example.map.Util.initMap;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -51,11 +53,6 @@ public class concreteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_concrete);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         VAltitude = findViewById(R.id.concreteAltitude);
         VDistanceView = findViewById(R.id.concreteSumDistance);
@@ -87,33 +84,35 @@ public class concreteActivity extends AppCompatActivity {
             aMap = mapView.getMap();
         }
 
+        if (aMap == null) {
+            Log.e("MapError", "aMap is null");
+        } else {
+            Log.d("MapSuccess", "aMap initialized successfully");
+        }
+
+
         // 添加轨迹绘制功能
         List<LatLng> points = new ArrayList<>();
-        points.add(new LatLng(39.906901, 116.397972)); // 示例轨迹点1 (北京天安门)
-        points.add(new LatLng(39.906901, 116.407972)); // 示例轨迹点2 (上海)
-        points.add(new LatLng(22.543099, 116.457972)); // 示例轨迹点3 (深圳)
+        points.add(new LatLng(39.9042, 116.4074)); // 北京
+        points.add(new LatLng(39.2304, 116.4737)); // 上海
+        points.add(new LatLng(39.5431, 116.0579)); // 深圳
+
         aMap.setOnMapLoadedListener(() -> {
             // 地图加载完成后，添加轨迹线
             PolylineOptions polylineOptions = new PolylineOptions()
                     .addAll(points)
                     .width(10)
-                    .color(0xFFFF0000);  // 设置轨迹线颜色
+                    .color(Color.parseColor("#11AEF7"));  // 设置轨迹线颜色
             aMap.addPolyline(polylineOptions);
         });
 
-        // 移动相机视角到第一个轨迹点
-        if (!points.isEmpty()) {
-            aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(points.get(0), 10));
+        // 将地图移动到轨迹可视范围内
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng point : points) {
+            builder.include(point);
         }
-
-        if (!points.isEmpty()) {
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (LatLng point : points) {
-                builder.include(point);
-            }
-            LatLngBounds bounds = builder.build();
-            aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100)); // 将地图移动到轨迹线的可视区域内
-        }
+        LatLngBounds bounds = builder.build();
+        aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
 
 
 
