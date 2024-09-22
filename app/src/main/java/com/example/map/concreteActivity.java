@@ -84,11 +84,6 @@ public class concreteActivity extends AppCompatActivity {
             aMap = mapView.getMap();
         }
 
-        if (aMap == null) {
-            Log.e("MapError", "aMap is null");
-        } else {
-            Log.d("MapSuccess", "aMap initialized successfully");
-        }
 
 
         // 添加轨迹绘制功能

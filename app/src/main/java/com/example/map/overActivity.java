@@ -1,6 +1,6 @@
 package com.example.map;
 
-import static com.example.map.Util.*;
+import static com.example.map.Utill.*;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,8 +16,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.services.core.LatLonPoint;
@@ -102,10 +104,21 @@ public class overActivity extends AppCompatActivity {
         if (pathPoints == null || pathPoints.isEmpty()) {
             Toast.makeText(this, "No path to replay", Toast.LENGTH_SHORT).show();
             return;
+
         }
 
         // 清除现有轨迹线
         polyline.setPoints(new ArrayList<>());
+
+        // 计算路径点的LatLngBounds，以确保轨迹路径在可视范围内
+        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
+        for (LatLng point : pathPoints) {
+            boundsBuilder.include(point);
+        }
+        LatLngBounds bounds = boundsBuilder.build();
+
+        // 将地图移动到路径的可视范围内
+        mMapView.getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100)); // 100 是边距，可以根据需要调整
 
         Handler handler = new Handler();
         final int[] index = {0};
@@ -116,7 +129,7 @@ public class overActivity extends AppCompatActivity {
                 if (index[0] < pathPoints.size()) {
                     polyline.setPoints(pathPoints.subList(0, index[0] + 1));
                     index[0]++;
-                    handler.postDelayed(this, 250);
+                    handler.postDelayed(this, 50);
                 }
             }
         };
