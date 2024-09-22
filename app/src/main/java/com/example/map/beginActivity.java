@@ -135,7 +135,8 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         //distance_sum 单位为km
                         float itemDistance = distanceItem.getDistance();
 
-                        distance_sum = (distance_sum + itemDistance) / 1000;
+                        distance_sum += (itemDistance / 1000); // 将距离的单位转换为公里并累加
+
 
                         distance.setText(String.format("%4.2f ", distance_sum));  // 将距离显示在 distanceT 文本框中
                         Log.d("Distance", "Distance: " + distance_sum + " meters");
@@ -304,22 +305,18 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     prePoint = new LatLonPoint(latitude, longitude);
                     latLonPoints.add(prePoint);
                 } else {
+                    // 每次更新将上一个点和当前点加入查询
                     latLonPoints.clear();
                     latLonPoints.add(prePoint);
+
                 }
-
                 final DistanceSearch.DistanceQuery distanceQuery = new DistanceSearch.DistanceQuery();
-
                 distanceQuery.setOrigins(latLonPoints);
-                //设置当前为终点
                 distanceQuery.setDestination(new LatLonPoint(latitude, longitude));
-//                distanceQuery.setDestination(BeiJingTianAnMen);
 
                 distanceQuery.setType(DistanceSearch.TYPE_DRIVING_DISTANCE);
-
                 distanceSearch.calculateRouteDistanceAsyn(distanceQuery);
 
-                //update prePoint
                 prePoint.setLatitude(latitude);
                 prePoint.setLongitude(longitude);
 
