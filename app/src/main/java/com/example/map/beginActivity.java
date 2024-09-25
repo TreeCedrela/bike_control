@@ -282,7 +282,6 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation != null) {
             if (aMapLocation.getErrorCode() == 0) {
-                if (aMapLocation.getAccuracy() < 20) {
                 //地址
                 String address = aMapLocation.getAddress();
                 //纬度
@@ -316,10 +315,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                 distanceQuery.setDestination(new LatLonPoint(latitude, longitude));
 
                 distanceQuery.setType(DistanceSearch.TYPE_DRIVING_DISTANCE);
-                if (latLonPoints.size() > 1) {
-                    // 执行距离查询
                     distanceSearch.calculateRouteDistanceAsyn(distanceQuery);
-                }
 
 
                 prePoint.setLatitude(latitude);
@@ -342,9 +338,6 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("mapError", "location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
-            }
-            } else {
-                Log.d("BeginActivity", "定位精度不高，忽略此次更新");
             }
         }
     }
