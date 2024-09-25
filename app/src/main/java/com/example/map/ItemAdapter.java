@@ -26,6 +26,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private final Context context;
 
 
+
     public ItemAdapter(List<MapItem> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
@@ -88,6 +89,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             VMapButton = itemView.findViewById(R.id.itemBottom);
             VTimeDate = itemView.findViewById(R.id.timeDate);
         }
+
+
     }
 
 }

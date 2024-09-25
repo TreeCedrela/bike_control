@@ -40,5 +40,7 @@ public class recordActivity extends AppCompatActivity {
         // 创建并设置适配器
         adapter = new ItemAdapter(dataList,this);
         recyclerView.setAdapter(adapter);
+
+
     }
 }

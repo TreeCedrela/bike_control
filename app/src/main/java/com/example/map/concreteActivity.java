@@ -8,10 +8,14 @@ import static com.example.map.Util.ImageURI;
 import static com.example.map.Util.initMap;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,6 +78,10 @@ public class concreteActivity extends AppCompatActivity {
         VDistanceView.setText(String.format("%4.2f", distanceSum));
         VAverageSpeed.setText(String.format("%4.2f", averageSpeed));
         VElapsedTime.setText(String.format("%4.2f", elapsedTime));
+
+
+
+
 
 
 //定义了一个地图view

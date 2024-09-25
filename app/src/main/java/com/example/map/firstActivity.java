@@ -1,9 +1,13 @@
 package com.example.map;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +23,18 @@ public class firstActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
+
+        // 获取截图文件路径
+        String screenshotPath = getIntent().getStringExtra("screenshot_path");
+
+        if (screenshotPath != null) {
+            // 显示截图
+            ImageView imageView = findViewById(R.id.imageView12);
+            Bitmap bitmap = BitmapFactory.decodeFile(screenshotPath);
+            imageView.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, "未接收到截图", Toast.LENGTH_SHORT).show();
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

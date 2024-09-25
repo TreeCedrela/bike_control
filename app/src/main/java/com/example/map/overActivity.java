@@ -4,10 +4,12 @@ import static com.example.map.Utill.*;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,9 @@ import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.services.core.LatLonPoint;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,11 +136,64 @@ public class overActivity extends AppCompatActivity {
                     index[0]++;
                     handler.postDelayed(this, 50);
                 }
+                else {
+                    // 轨迹回放完成后进行截图
+                    takeMapScreenshot();
+                }
             }
         };
 
         handler.post(runnable);
     }
+
+    private void takeMapScreenshot() {
+        mMapView.getMap().getMapScreenShot(new AMap.OnMapScreenShotListener() {
+            @Override
+            public void onMapScreenShot(Bitmap bitmap) {
+                // 将截图保存到本地文件
+                saveBitmapToFile(bitmap);
+            }
+
+            @Override
+            public void onMapScreenShot(Bitmap bitmap, int status) {
+                if (status == 0) {
+                    // 截图成功
+                    saveBitmapToFile(bitmap);
+                } else {
+                    // 截图失败
+                    Toast.makeText(overActivity.this, "截图失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void saveBitmapToFile(Bitmap bitmap) {
+        try {
+            File file = new File(getExternalCacheDir(), "map_screenshot.png");
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+            //如果是在当前界面继续操作，则如下：
+            //showScreenshot(bitmap);不要下面传递的部分
+
+            // 将文件路径传递到下一个Activity
+            Intent intent = new Intent(overActivity.this, firstActivity.class);
+            intent.putExtra("screenshot_path", file.getAbsolutePath());
+            startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(overActivity.this, "保存截图失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+//    private void showScreenshot(Bitmap bitmap) {
+//        ImageView imageView = findViewById(R.id.screenshot_image);
+//        imageView.setImageBitmap(bitmap);
+//    }
+
+
 
 
     @Override
