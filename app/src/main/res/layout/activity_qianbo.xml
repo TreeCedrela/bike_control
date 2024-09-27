@@ -243,5 +243,13 @@
         tools:layout_editor_absoluteY="11dp"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/mapbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地图"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="31dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

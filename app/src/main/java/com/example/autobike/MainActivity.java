@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
         }
         int k = mHelper.QueryRemember();
         if(k == 1){
-            Intent intent = new Intent(MainActivity.this,MapApplication.class);
+            Intent intent = new Intent(MainActivity.this, QianboActivity.class);
             startActivity(intent);
         }
         // 登录按钮监听器

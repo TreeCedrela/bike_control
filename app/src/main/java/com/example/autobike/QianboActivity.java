@@ -24,6 +24,7 @@ public class QianboActivity extends AppCompatActivity {
     private boolean isRightGearHighlighted=false;
     public Button button3;
     public Button button4;
+    public Button button7;
     private TextView nowqianbo;
 
 
@@ -61,7 +62,15 @@ public class QianboActivity extends AppCompatActivity {
         button2=findViewById(R.id.button2);
         button5=findViewById(R.id.button3);
         button6=findViewById(R.id.button4);
+        button7=findViewById(R.id.mapbt);
         nowqianbo=findViewById(R.id.nowqian);//假设按钮2的id为button2
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(QianboActivity.this,firstActivity.class);
+                startActivity(intent);
+            }
+        });
         button1.setOnClickListener(view ->  {
             toggleGears(true);
             updateHighlightInfo(true);
@@ -99,6 +108,7 @@ public class QianboActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
