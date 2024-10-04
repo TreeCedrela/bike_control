@@ -1,6 +1,18 @@
 package com.example.map;
 
-import static com.example.map.Util.*;
+import static com.example.map.Util.Altitude;
+import static com.example.map.Util.AverageSpeed;
+import static com.example.map.Util.DistanceSum;
+import static com.example.map.Util.ElapsedTime;
+import static com.example.map.Util.ExtraDATE;
+import static com.example.map.Util.Latitude;
+import static com.example.map.Util.Latitudes;
+import static com.example.map.Util.Longitude;
+import static com.example.map.Util.Longitudes;
+import static com.example.map.Util.initLocation;
+import static com.example.map.Util.initMap;
+import static com.example.map.Util.requestPermission;
+import static com.example.map.Util.showMsg;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,8 +40,11 @@ import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.DistanceItem;
 import com.amap.api.services.route.DistanceSearch;
+import com.example.map.database.RecordDBHelper;
+import com.example.map.entity.SportRecord;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -97,6 +112,10 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
     private double StartAltitude;
     private double LastAltitude;
 
+    private RecordDBHelper recordDBHelper;
+    private SportRecord sportRecord;
+
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +141,12 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
 
         aMap = mMapView.getMap();
 
-        initMap(savedInstanceState, this, mMapView, aMap,null);
+        sportRecord=new SportRecord("pic/"+LocalDate.now().toString(),0,0,0,0, LocalDate.now(),0);
+
+        recordDBHelper=RecordDBHelper.getInstance(this);
+        recordDBHelper.InsertRecord(sportRecord);
+
+        initMap(savedInstanceState, this, mMapView, aMap, null);
 
         try {
             distanceSearch = new DistanceSearch(this);
@@ -135,11 +159,19 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         //distance_sum 单位为km
                         float itemDistance = distanceItem.getDistance();
 
-                        distance_sum += (itemDistance / 1000); // 将距离的单位转换为公里并累加
-
+                        distance_sum += (float) (itemDistance / 1000.00); // 将距离的单位转换为公里并累加
 
                         distance.setText(String.format("%4.2f ", distance_sum));  // 将距离显示在 distanceT 文本框中
                         Log.d("Distance", "Distance: " + distance_sum + " meters");
+
+                        //make record update
+                        sportRecord.setAltitude((float) (LastAltitude-StartAltitude));
+                        sportRecord.setDistanceSum(distance_sum);
+                        sportRecord.setElapsedTime(elapsedTime);
+                        sportRecord.setTimeDate(LocalDate.now());
+                        sportRecord.setAverageSpeed(avg_speed);
+                        // update
+                        recordDBHelper.UpdateRecord(sportRecord);
                     } else {
                         Log.i("BeginActivity", "onDistanceSearched: no distance,try move");
                     }
@@ -209,6 +241,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         longitudes[i] = pathPoints.get(i).longitude;
                     }
 
+
                     //轨迹图
                     intent.putExtra(Latitudes, latitudes);
                     intent.putExtra(Longitudes, longitudes);
@@ -216,15 +249,25 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     intent.putExtra(ElapsedTime, elapsedTime);
                     // 将格式化后的日期传递给OverActivity
                     intent.putExtra(ExtraDATE, formattedDate);
+                    double distance = LastAltitude - StartAltitude;
                     //海拔爬升值
-                    intent.putExtra(Altitude, LastAltitude - StartAltitude);
+                    intent.putExtra(Altitude, distance);
                     //平均速度
-                    intent.putExtra(AverageSpeed,avg_speed);
+                    intent.putExtra(AverageSpeed, avg_speed);
                     //里程
-                    intent.putExtra(DistanceSum,distance_sum);
+                    intent.putExtra(DistanceSum, distance_sum);
                     //经纬度坐标
-                    intent.putExtra(Latitude,prePoint.getLatitude());
-                    intent.putExtra(Longitude,prePoint.getLongitude());
+                    intent.putExtra(Latitude, prePoint.getLatitude());
+                    intent.putExtra(Longitude, prePoint.getLongitude());
+
+                    // update record as over status
+                    sportRecord.setStatus(1);
+                    sportRecord.setElapsedTime(elapsedTime);
+                    sportRecord.setDistanceSum(distance_sum);
+                    sportRecord.setAverageSpeed(avg_speed);
+                    sportRecord.setAltitude((float) distance);
+                    //update
+                    recordDBHelper.UpdateRecord(sportRecord);
 
                     startActivity(intent);
                     onDestroy();
@@ -315,7 +358,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                 distanceQuery.setDestination(new LatLonPoint(latitude, longitude));
 
                 distanceQuery.setType(DistanceSearch.TYPE_DRIVING_DISTANCE);
-                    distanceSearch.calculateRouteDistanceAsyn(distanceQuery);
+                distanceSearch.calculateRouteDistanceAsyn(distanceQuery);
 
 
                 prePoint.setLatitude(latitude);

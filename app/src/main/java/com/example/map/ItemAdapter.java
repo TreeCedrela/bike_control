@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,18 +15,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
+import com.example.map.entity.SportRecord;
+
 import java.util.List;
-import java.util.Locale;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private final List<MapItem> itemList;
+    private final List<SportRecord> itemList;
     private final Context context;
 
 
 
-    public ItemAdapter(List<MapItem> itemList, Context context) {
+    public ItemAdapter(List<SportRecord> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
     }
@@ -43,7 +42,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        holder.textView.setText(dataList.get(position));
-        MapItem mapItem = itemList.get(position);
+        SportRecord mapItem = itemList.get(position);
         holder.VDistanceSum.setText(String.format("%4.2f", mapItem.getDistanceSum()));
 
 //        holder.VDistanceSum.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(mapItem.getTimeDate()));
