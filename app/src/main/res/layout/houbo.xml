@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HouboActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="设备信息"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.152"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.04"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="ES-R9001"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintVertical_bias="0" />
+
+        <Button
+            android:id="@+id/qianbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="#505050"
+            android:text="前拨"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/houbo"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0"
+            android:fontFamily="sans-serif"/>
+
+        <Button
+            android:id="@+id/houbo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="#000000"
+            android:text="后拨"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shoubian"
+            app:layout_constraintStart_toEndOf="@+id/qianbo"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0"
+            android:fontFamily="sans-serif"/>
+
+        <Button
+            android:id="@+id/shoubian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="#505050"
+            android:text="手变"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/houbo"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0"
+            android:fontFamily="sans-serif" />
+
+        <View
+            android:id="@+id/verticalLine1"
+            android:layout_width="3dp"
+            android:layout_height="20dp"
+            android:background="#000000"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintBottom_toBottomOf="@+id/qianbo"
+            app:layout_constraintEnd_toStartOf="@+id/houbo"
+            app:layout_constraintStart_toEndOf="@+id/qianbo"
+            app:layout_constraintTop_toTopOf="@+id/qianbo" />
+
+        <View
+            android:id="@+id/verticalLine2"
+            android:layout_width="3dp"
+            android:layout_height="20dp"
+            android:background="#000000"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintBottom_toBottomOf="@+id/houbo"
+            app:layout_constraintEnd_toStartOf="@+id/shoubian"
+            app:layout_constraintStart_toEndOf="@+id/houbo"
+            app:layout_constraintTop_toTopOf="@+id/houbo"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/guideline"
+            app:layout_constraintGuide_percent="0.89"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/guideline1"
+            app:layout_constraintGuide_percent="0.11"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/guideline3"
+            app:layout_constraintGuide_percent="0.95"
+            android:orientation="horizontal"/>
+
+
+        <Button
+            android:id="@+id/button1_1"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="-"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button2_2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/weitiao_2" />
+
+        <Button
+            android:id="@+id/button2_2"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="+"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/button1_1"
+            app:layout_constraintTop_toBottomOf="@+id/weitiao_2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="单挡微调"
+            android:id="@+id/buttonhoubo1"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@+id/nowhou"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
+            app:layout_constraintEnd_toEndOf="@+id/verticalLinehoubo"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="校准"
+            android:id="@+id/buttonhoubojiaozhun"
+            app:layout_constraintTop_toBottomOf="@+id/nowhou"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/verticalLinehoubo"
+            app:layout_constraintVertical_bias="0"
+            android:background="@android:color/transparent"
+            android:textColor="#505050"
+            android:textSize="25sp" />
+
+        <View
+            android:id="@+id/verticalLinehoubo"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonhoubo1"
+            app:layout_constraintTop_toTopOf="@+id/buttonhoubo1"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"/>
+
+        <SeekBar
+            android:id="@+id/weitiao_2"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:max="500"
+            android:progress="150"
+            android:splitTrack="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/verticalLinehoubo" />
+
+        <com.example.myapplication.Houbbbb
+            android:id="@+id/houbbbb"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerVertical="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/houbo"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/nowhou"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/highlight_left_gear"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/houbbbb"
+            app:layout_constraintVertical_bias="0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
