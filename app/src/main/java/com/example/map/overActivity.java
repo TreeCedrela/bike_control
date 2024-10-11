@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class overActivity extends AppCompatActivity {
     private Polyline polyline;
     private final List<LatLng> pathPoints = new ArrayList<>();
 
-    @SuppressLint({"DefaultLocale", "SetTextI18n"})
+    @SuppressLint({"DefaultLocale", "SetTextI18n", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,13 @@ public class overActivity extends AppCompatActivity {
         TextView dateTextView = findViewById(R.id.timeDate);
         TextView VAltitude = findViewById(R.id.altitude);
         TextView VDistanceSum = findViewById(R.id.distanceSum);
+
+//        Button cross = findViewById(R.id.imageButton4);
+//
+//        cross.setOnClickListener(v->{
+//            Intent intent =new Intent(overActivity.this,MainActivity.class);
+//            startActivity(intent);
+//        });
 
         VAverageSpeed.setText(String.format("%4.2f",averageSpeed));
         VAltitude.setText(String.format("%4.2f",altitude));
@@ -181,7 +189,7 @@ public class overActivity extends AppCompatActivity {
             // 将文件路径传递到下一个Activity
             Intent intent = new Intent(overActivity.this, firstActivity.class);
             intent.putExtra("screenshot_path", file.getAbsolutePath());
-            startActivity(intent);
+           startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(overActivity.this, "保存截图失败", Toast.LENGTH_SHORT).show();

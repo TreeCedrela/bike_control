@@ -255,15 +255,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:max="100"
-                    android:progress="0"
+                    android:maxHeight="55dp"
+                    android:minHeight="55dp"
+                    android:progress="7"
                     android:progressDrawable="@drawable/custom_progress"
+                    android:scaleY="1"
+                    android:splitTrack="false"
                     android:thumb="@drawable/custom_thumb"
                     android:thumbTint="#FF6E6E"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -275,10 +281,13 @@
                     android:text="@string/over"
                     android:textColor="#FF6E6E"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/seekBar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.462"
+                    app:layout_constraintLeft_toLeftOf="@id/seekBar"
+                    app:layout_constraintRight_toRightOf="@id/seekBar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.242" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

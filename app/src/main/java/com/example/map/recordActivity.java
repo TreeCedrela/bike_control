@@ -21,10 +21,21 @@ public class recordActivity extends AppCompatActivity {
     private ItemAdapter adapter;
     private List<MapItem> dataList;
 
+    private Button backButton;
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+
+//        backButton=findViewById(R.id.imageButton);
+//        backButton.setOnClickListener(v->{
+//            Intent intent=new Intent(recordActivity.this,MainActivity.class);
+//            startActivity(intent);
+//        });
+
+
 
         // 初始化数据
         dataList = new ArrayList<>();

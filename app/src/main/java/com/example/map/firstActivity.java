@@ -20,9 +20,6 @@ public class firstActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_first);
 
-        Button button = findViewById(R.id.button);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
 
         // 获取截图文件路径
         String screenshotPath = getIntent().getStringExtra("screenshot_path");
@@ -36,28 +33,6 @@ public class firstActivity extends AppCompatActivity {
             Toast.makeText(this, "未接收到截图", Toast.LENGTH_SHORT).show();
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this,recordActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

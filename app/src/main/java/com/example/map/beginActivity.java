@@ -135,7 +135,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         //distance_sum 单位为km
                         float itemDistance = distanceItem.getDistance();
 
-                        distance_sum += (itemDistance / 1000); // 将距离的单位转换为公里并累加
+                        distance_sum += (itemDistance / 1000.0f); // 将距离的单位转换为公里并累加
 
 
                         distance.setText(String.format("%4.2f ", distance_sum));  // 将距离显示在 distanceT 文本框中
@@ -183,6 +183,11 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+                // 如果进度超过 80%，强制将进度设置为 80
+                if (progress > 90) {
+                    seekBar.setProgress(90); // 强制进度最大为80%
+                }
+
             }
 
             @Override
@@ -193,7 +198,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
-                if (seekBar.getProgress() == seekBar.getMax()) {
+                if (seekBar.getProgress() == 90) {
 
                     // 停止拖动时停止计时
                     endTime = System.currentTimeMillis();
@@ -306,7 +311,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     latLonPoints.add(prePoint);
                 } else {
                     // 每次更新将上一个点和当前点加入查询
-                    latLonPoints.clear();
+                    //latLonPoints.clear();
                     latLonPoints.add(prePoint);
 
                 }

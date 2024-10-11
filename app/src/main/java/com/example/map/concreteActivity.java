@@ -8,11 +8,13 @@ import static com.example.map.Util.ImageURI;
 import static com.example.map.Util.initMap;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,13 +52,20 @@ public class concreteActivity extends AppCompatActivity {
     private TextView VElapsedTime;
     private MapView mMapView;
     public AMap aMap = null;
+    private Button backButton;
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_concrete);
+//
+//        backButton=findViewById(R.id.imageButton2);
+//        backButton.setOnClickListener(v->{
+//            Intent intent=new Intent(concreteActivity.this,recordActivity.class);
+//            startActivity(intent);
+//        });
 
         VAltitude = findViewById(R.id.concreteAltitude);
         VDistanceView = findViewById(R.id.concreteSumDistance);
