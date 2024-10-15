@@ -10,7 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.autobike.utils.BleHelper;
+import com.example.autobike.bluetooth.BleCallback;
 import com.example.map.R;
 
 
@@ -63,6 +64,8 @@ public class QianboActivity extends AppCompatActivity {
         button6=findViewById(R.id.button4);
         nowqianbo=findViewById(R.id.nowqian);//假设按钮2的id为button2
         button1.setOnClickListener(view ->  {
+
+         // BleHelper.sendCommand(gatt,"",true);
             toggleGears(true);
             updateHighlightInfo(true);
         });
@@ -130,6 +133,8 @@ public class QianboActivity extends AppCompatActivity {
     private void updateHighlightInfo(boolean isLeftHighlighted) {
         if (isLeftHighlighted) {
             nowqianbo.setText(getResources().getString(R.string.highlight_left_gear));
+           // nowqianbo.setText(BleCallback.buffer);
+
         } else {
             nowqianbo.setText(getResources().getString(R.string.highlight_right_gear));
         }

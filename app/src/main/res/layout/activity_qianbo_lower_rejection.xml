@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.autobike.qianbogaodixianwei">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="高位限制"
+        android:id="@+id/gao"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/verticalLine"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewgao"
+        app:layout_constraintVertical_bias="0.8"
+        android:background="@android:color/transparent"
+        android:textColor="#505050"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="低位限制"
+        android:id="@+id/di"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintEnd_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/verticalLine"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewgao"
+        android:background="@android:color/transparent"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/guideline"
+        app:layout_constraintGuide_percent="0.89"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/guideline1"
+        app:layout_constraintGuide_percent="0.11"
+        android:orientation="vertical"/>
+
+    <View
+        android:id="@+id/verticalLine"
+        android:layout_width="3dp"
+        android:layout_height="30dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/gao"
+        app:layout_constraintTop_toTopOf="@+id/gao"
+        app:layout_constraintEnd_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"/>
+
+
+
+    <ImageView
+        android:id="@+id/imageViewgao"
+        android:layout_width="match_parent"
+        android:layout_height="171dp"
+        app:srcCompat="@drawable/diwei"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.48"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="高低限位"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        android:gravity="center"
+        />
+
+
+    <ImageButton
+        android:id="@+id/backtoQianbo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/textView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView1"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.01"
+        android:contentDescription="backtoqianbo"
+        />
+
+    <SeekBar
+        android:id="@+id/jiaozhunlow"
+        android:layout_width="240dp"
+        android:layout_height="20dp"
+        android:max="500"
+        android:progress="150"
+        android:splitTrack="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toBottomOf="@+id/LowLimitValue"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="add"
+        android:id="@+id/addbutton"
+        android:src="@drawable/baseline_arrow_right_24"
+        app:layout_constraintTop_toTopOf="@+id/LowLimitValue"
+        app:layout_constraintBottom_toBottomOf="@+id/LowLimitValue"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        android:background="@color/design_default_color_background" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_left_24"
+        android:contentDescription="decrease"
+        android:id="@+id/dreasebutton"
+        android:background="@color/design_default_color_background"
+        app:layout_constraintTop_toTopOf="@+id/LowLimitValue"
+        app:layout_constraintBottom_toBottomOf="@+id/LowLimitValue"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+
+        tools:ignore="InvalidId" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LowLimitValue"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewgao"
+        app:layout_constraintStart_toEndOf="@+id/dreasebutton"
+        app:layout_constraintEnd_toStartOf="@+id/addbutton"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

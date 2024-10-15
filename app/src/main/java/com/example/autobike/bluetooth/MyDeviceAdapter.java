@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bluetooth.databinding.ItemDeviceBinding;
+import com.example.autobike.bluetooth.databinding.ItemDeviceBinding;
 
 import java.util.List;
 
