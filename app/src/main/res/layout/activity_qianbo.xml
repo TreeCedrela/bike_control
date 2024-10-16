@@ -22,8 +22,9 @@
         app:layout_constraintVertical_bias="0.04"
         />
 
+
     <TextView
-        android:id="@+id/textView2"
+            android:id="@+id/DeviceNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
@@ -59,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/houbo"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/DeviceNumber"
         app:layout_constraintVertical_bias="0"
         android:fontFamily="sans-serif"/>
 
@@ -74,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/shoubian"
         app:layout_constraintStart_toEndOf="@+id/qianbo"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/DeviceNumber"
         app:layout_constraintVertical_bias="0"
         android:fontFamily="sans-serif"/>
 
@@ -89,7 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/houbo"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/DeviceNumber"
         app:layout_constraintVertical_bias="0"
         android:fontFamily="sans-serif" />
 
@@ -98,7 +99,7 @@
         android:layout_width="3dp"
         android:layout_height="20dp"
         android:background="#505050"
-        tools:ignore="MissingConstraints"
+
         app:layout_constraintBottom_toBottomOf="@+id/qianbo"
         app:layout_constraintEnd_toStartOf="@+id/houbo"
         app:layout_constraintStart_toEndOf="@+id/qianbo"
@@ -179,7 +180,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/FrontValue"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -194,7 +195,7 @@
 
 
     <TextView
-        android:id="@+id/nowqian"
+        android:id="@+id/FrontDialSpeed"
         android:layout_width="108dp"
         android:layout_height="40dp"
         android:gravity="center"
@@ -211,7 +212,7 @@
         android:layout_height="wrap_content"
         android:text="单挡微调"
         android:id="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/nowqian"
+        app:layout_constraintTop_toBottomOf="@+id/FrontDialSpeed"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/verticalLine"
         app:layout_constraintVertical_bias="0"
@@ -225,7 +226,7 @@
         android:layout_height="wrap_content"
         android:text="高低限位"
         android:id="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/nowqian"
+        app:layout_constraintTop_toBottomOf="@+id/FrontDialSpeed"
         app:layout_constraintEnd_toEndOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/verticalLine"
         app:layout_constraintVertical_bias="0"
@@ -235,13 +236,27 @@
         />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/FrontBattery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/battery"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="11dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintBottom_toBottomOf="@+id/DeviceNumber"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/DeviceNumber"
+        app:layout_constraintTop_toTopOf="@+id/DeviceNumber"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:srcCompat="@drawable/battery" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FrontValue"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
