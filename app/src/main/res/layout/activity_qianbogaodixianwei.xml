@@ -11,11 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="高位限制"
-        android:id="@+id/button5_gao"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        android:id="@+id/gao"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlow"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/verticalLine"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewgao"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewlow"
         app:layout_constraintVertical_bias="0.8"
         android:background="@android:color/transparent"
         android:textColor="#000000"
@@ -26,12 +26,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="低位限制"
-        android:id="@+id/button5_di"
+        android:id="@+id/di"
         app:layout_constraintVertical_bias="0.8"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlow"
         app:layout_constraintEnd_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/verticalLine"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewgao"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewlow"
         android:background="@android:color/transparent"
         android:textColor="#505050"
         android:textSize="25sp"
@@ -56,19 +56,19 @@
         android:layout_width="3dp"
         android:layout_height="30dp"
         android:background="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/button5_gao"
-        app:layout_constraintTop_toTopOf="@+id/button5_gao"
+        app:layout_constraintBottom_toBottomOf="@+id/gao"
+        app:layout_constraintTop_toTopOf="@+id/gao"
         app:layout_constraintEnd_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline1"/>
 
 
 
     <ImageView
-        android:id="@+id/imageViewgao"
+        android:id="@+id/imageViewlow"
         android:layout_width="match_parent"
         android:layout_height="171dp"
         app:srcCompat="@drawable/gaowei2"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewlow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +76,7 @@
         android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewlow"
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:fontFamily="sans-serif-condensed-light"
@@ -92,34 +92,66 @@
 
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backtoQianbo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/textView1"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewlow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView1"
+        app:layout_constraintTop_toTopOf="@+id/textViewlow"
         app:layout_constraintVertical_bias="0.02"
         app:layout_constraintHorizontal_bias="0.01"
         android:contentDescription="backtoqianbo"
-        tools:ignore="MissingConstraints" />
+        />
 
     <SeekBar
         android:id="@+id/jiaozhungao"
         android:layout_width="240dp"
         android:layout_height="20dp"
-        android:max="500"
-        android:progress="150"
         android:splitTrack="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewgao"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toBottomOf="@+id/HighLimitValue"
         tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="add"
+        android:id="@+id/addbutton"
+        android:src="@drawable/baseline_arrow_right_24"
+        app:layout_constraintTop_toTopOf="@+id/HighLimitValue"
+        app:layout_constraintBottom_toBottomOf="@+id/HighLimitValue"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        android:background="@color/design_default_color_background" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_left_24"
+        android:contentDescription="decrease"
+        android:id="@+id/dreasebutton"
+        android:background="@color/design_default_color_background"
+        app:layout_constraintTop_toTopOf="@+id/HighLimitValue"
+        app:layout_constraintBottom_toBottomOf="@+id/HighLimitValue"
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+
+        tools:ignore="InvalidId" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HighLimitValue"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewlow"
+        app:layout_constraintStart_toEndOf="@+id/dreasebutton"
+        app:layout_constraintEnd_toStartOf="@+id/addbutton"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
