@@ -1,7 +1,7 @@
-
 plugins {
     alias(libs.plugins.android.application)
 }
+
 
 android {
 
@@ -33,13 +33,12 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         dataBinding = true
+        viewBinding = true
 
     }
 
 
-}
 dependencies {
 
     implementation(libs.appcompat)
@@ -54,4 +53,10 @@ dependencies {
     implementation(libs.easypermissions)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation("androidx.databinding:databinding-runtime:8.7.1")
+
+
+    }
+
+
 }

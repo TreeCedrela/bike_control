@@ -25,6 +25,7 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 

@@ -59,11 +59,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.autobike.bluetooth.ConnectActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.autobike.QianboActivity"
             android:exported="false" />
         <activity
-        android:name="com.example.autobike.qianbogaodixianwei"
-        android:exported="false" />
+            android:name="com.example.autobike.qianbogaodixianwei"
+            android:exported="false" />
         <activity
             android:name="com.example.autobike.Houbojiaozhun"
             android:exported="false" />

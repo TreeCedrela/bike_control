@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.autobike.bluetooth.ConnectActivity;
 import com.example.autobike.database.UserDBHelper;
 import com.example.map.R;
 
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
         }
         int k = mHelper.QueryRemember();
         if(k == 1){
-            Intent intent = new Intent(MainActivity.this,HouboActivity.class);
+            Intent intent = new Intent(MainActivity.this, ConnectActivity.class);
             startActivity(intent);
         }
         // 登录按钮监听器

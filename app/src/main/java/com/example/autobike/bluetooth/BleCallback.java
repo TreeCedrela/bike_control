@@ -14,11 +14,21 @@ import com.example.autobike.utils.BleHelper;
 import com.example.autobike.utils.ByteUtils;
 
 
+
 public class BleCallback extends BluetoothGattCallback {
+    private static final String TAG = BleCallback.class.getSimpleName();
     public static String buffer = "";
     public static String s = "";
     public static String content = "";
-    private static final String TAG = BleCallback.class.getSimpleName();
+    public static String device_name = "";               //存储设备型号
+    public static String app_edition = "";               //存储软件版本
+    public static int front_speed1 = 0;              //存储前拨速别1对应的电机转动角度
+    public static int front_speed2 = 0;              //存储前拨速别2对应的电机转动角度
+    public static int front_speed3 = 0;              //存储前拨速别3对应的电机转动角度
+    public static int current_front_speed = 0 ;          //存储当前速别的电机转动角度
+
+    public static String crc = "" ;                          //存储CRC校验位
+
 
     /**
      * 连接状态改变回调
@@ -91,7 +101,12 @@ public class BleCallback extends BluetoothGattCallback {
         if (BleConstant.ENABLE_NOTIFICATION_UUID.equals(descriptor.getUuid().toString().toLowerCase())) {
             if (status == GATT_SUCCESS) {
                 Log.d(TAG, "onDescriptorWrite: 通知开启成功");
-                BleHelper.sendCommand(gatt, "41",true);
+                //1.发装置型号
+                BleHelper.sendCommand(gatt, "20030000000000000000000092A3",true);
+                BleHelper.sendCommand(gatt, "3A0300000000000000000000B8B1",true);
+                //2.软件版本
+                BleHelper.sendCommand(gatt, "21030000000000000000000091D6",true);
+                BleHelper.sendCommand(gatt, "3B0300000000000000000000BBC4",true);
             } else {
                 Log.d(TAG, "onDescriptorWrite: 通知开启失败");
             }
@@ -142,47 +157,95 @@ public class BleCallback extends BluetoothGattCallback {
 
         Log.d(TAG, "onCharacteristicChanged: 收到内容：" + content);
         //1.设备型号
-        // ！！！！！！！！！
-        // （buffer需清0）
-        // ！！！！！！！！！
         if(content.substring(0,2).equals("20") ){
             buffer = "";
-            s=content.substring(3,12);
+            s=content.substring(4,24);
             buffer = buffer + s;
         }
         else if(content.substring(0,2).equals("3a")){
-            s=content.substring(3,12);
+            s=content.substring(4,24);
             buffer = buffer + s;
-            convertAsciiToChar(s);
+            device_name = hexToAscii(s);
         }
         //2.软件版本
-        // ！！！！！！！！！
-        // （buffer需清0）
-        // ！！！！！！！！！
-        if(content.substring(0,2).equals("21") || content.substring(0,2).equals("3b")  ){
-            s=buffer.substring(3,12);
+        if(content.substring(0,2).equals("21") ){
+            buffer = "";
+            s=content.substring(4,24);
             buffer = buffer + s;
-            //convertAsciiToChar(s);
         }
+        else if(content.substring(0,2).equals("3B")){
+            s=content.substring(4,24);
+            buffer = buffer + s;
+            app_edition = hexToAscii(s);
+        }
+        //3.获取前拨速别
+        //BleHelper.sendCommand(gatt, "11030000B083",true);
+        if(content.substring(0,4).equals("1103") ){
+            buffer = "";
+            s=content.substring(4,8);
+            buffer = buffer + s;
+            current_front_speed = Integer.parseInt(buffer,16);
+        }
+        //4.调整前拨速别
+        //BleHelper.sendCommand(gatt, "1106"+front_speed1+crc,true);
+        if(content.substring(0,4).equals("1106") ){
+            buffer = "";
+            s=content.substring(4,8);
+            buffer = buffer + s;
+            current_front_speed = Integer.parseInt(buffer,16);
+            /*
+             * 判断调整后的速别位于哪个档，并对不同速别进行更新
+             * （目前 范围值还需改动）
+             */
+            if(current_front_speed>801 && current_front_speed<1201){
+                front_speed1 = current_front_speed ;
+            }
+            if(current_front_speed>2980 && current_front_speed<3380){
+                front_speed2 = current_front_speed ;
+            }
+            if(current_front_speed>5160 && current_front_speed<5560){
+                front_speed3 = current_front_speed ;
+            }
+
+        }
+
 
 
         Log.d(TAG, "buffer：" + buffer);
         Log.d(TAG, "onCharacteristicChanged: 读取特性 " + gatt.readCharacteristic(characteristic));
     }
 
-    // 将 String 中的 ASCII 码转换为对应的字符
-    public static String convertAsciiToChar(String input) {
-        StringBuilder result = new StringBuilder();
+    //将16进制转成对应的ascll码
+    private static String hexToAscii(String hexStr) {
+        StringBuilder output = new StringBuilder("");
 
-        // 每两个字符表示一个 ASCII 码，将其转为整数后，再转换为字符
-        for (int i = 0; i < input.length(); i += 2) {
-            String asciiCode = input.substring(i, i + 2);
-            int charCode = Integer.parseInt(asciiCode);
-            result.append((char) charCode);
+        for (int i = 0; i < hexStr.length(); i += 2) {
+            String str = hexStr.substring(i, i + 2);
+            output.append((char) Integer.parseInt(str, 16));
         }
 
-        return result.toString();
+        return output.toString();
     }
+    //计算CRC校验位
+    public static String calculateCRC16(String input) {
+        // 将字符串转换为字节数组，使用 UTF-8 编码
+        byte[] data = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
+        int crc = 0xFFFF;  // 初始值为 0xFFFF
+        for (byte b : data) {
+            crc ^= (b << 8);  // 将当前字节的高8位与CRC异或
+            for (int i = 0; i < 8; i++) {
+                if ((crc & 0x8000) != 0) {  // 判断最高位是否为1
+                    crc = (crc << 1) ^ 0x1021;  // 左移并与多项式0x1021异或
+                }
+                else {
+                    crc <<= 1;  // 否则只左移1位
+                }
+            }
+        }
+        return String.format("%04X", crc & 0xFFFF);
+    }
+
 }
 
 
