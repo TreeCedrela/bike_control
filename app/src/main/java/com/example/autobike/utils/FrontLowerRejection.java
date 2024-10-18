@@ -15,7 +15,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.autobike.QianboActivity;
-import com.example.autobike.QianboLowerRejection;
 import com.example.autobike.qianbogaodixianwei;
 import com.example.map.R;
 

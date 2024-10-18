@@ -23,22 +23,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <!--Android12 的蓝牙权限 如果您的应用与已配对的蓝牙设备通信或者获取当前手机蓝牙是否打开-->
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
-    <!--Android12 的蓝牙权限 如果您的应用查找蓝牙设备（如蓝牙低功耗 (BLE) 外围设备）-->
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- Android12 的蓝牙权限 如果您的应用与已配对的蓝牙设备通信或者获取当前手机蓝牙是否打开 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> <!-- Android12 的蓝牙权限 如果您的应用查找蓝牙设备（如蓝牙低功耗 (BLE) 外围设备） -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation"
-        tools:targetApi="s" />
-    <!--Android12 的蓝牙权限 如果您的应用使当前设备可被其他蓝牙设备检测到-->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
-    <!--Android 6-11 定位权限-->
+        tools:targetApi="s" /> <!-- Android12 的蓝牙权限 如果您的应用使当前设备可被其他蓝牙设备检测到 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" /> <!-- Android 6-11 定位权限 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-
         android:name="com.example.autobike.MapApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -49,6 +45,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Map"
         tools:targetApi="31">
+        <activity
+            android:name=".QianboLowerRejection"
+            android:exported="false" />
         <activity
             android:name="com.example.autobike.MainActivity"
             android:exported="true">
@@ -62,8 +61,8 @@
             android:name="com.example.autobike.QianboActivity"
             android:exported="false" />
         <activity
-        android:name="com.example.autobike.qianbogaodixianwei"
-        android:exported="false" />
+            android:name="com.example.autobike.qianbogaodixianwei"
+            android:exported="false" />
         <activity
             android:name="com.example.autobike.Houbojiaozhun"
             android:exported="false" />
@@ -101,7 +100,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="73737dfc6834424b99cb7be523cfe864" /> <!-- 定位service -->
         <service android:name="com.amap.api.location.APSService" />
-    </application
-        >
+    </application>
 
 </manifest>

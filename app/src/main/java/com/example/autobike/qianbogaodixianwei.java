@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.autobike.utils.FrontLowerRejection;
 import com.example.map.R;
 
 public class qianbogaodixianwei extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class qianbogaodixianwei extends AppCompatActivity {
         buttondi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(qianbogaodixianwei.this,QianboLowerRejection.class);
+                Intent intent=new Intent(qianbogaodixianwei.this, FrontLowerRejection.class);
                 startActivity(intent);
             }
         });
