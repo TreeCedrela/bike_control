@@ -2,10 +2,13 @@ package com.example.autobike;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,11 +31,27 @@ public class QianboActivity extends AppCompatActivity {
     private TextView nowqianbo;
 
 
+    private BluetoothGatt bluetoothGatt;
+    private boolean isConnected = false;
+    private BleCallback bleCallback;
+    private EditText etCommand;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
+
+
+        //初始化
+        bleCallback = new BleCallback();
+        //获取上个页面传递过来的设备
+        BluetoothDevice device = getIntent().getParcelableExtra("device");
+        //连接gatt 设置Gatt回调
+        bluetoothGatt = device.connectGatt(this, false, bleCallback);
+
+
 
         seekBar=findViewById(R.id.weitiao);
         textView1=findViewById(R.id.textView);//设备信息
@@ -43,8 +62,9 @@ public class QianboActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                handleSeekBarProgressChanged(progress);
+                // handleSeekBarProgressChanged(progress);
                 textview2.setText(String.valueOf(progress));
+
             }
 
             @Override
@@ -66,12 +86,13 @@ public class QianboActivity extends AppCompatActivity {
         nowqianbo=findViewById(R.id.FrontDialSpeed);
         button1.setOnClickListener(view ->  {
 
-         // BleHelper.sendCommand(gatt,"",true);
+            BleHelper.sendCommand(bluetoothGatt," ",true);
             toggleGears(true);
             updateHighlightInfo(true);
         });
 
         button2.setOnClickListener(view ->  {
+            BleHelper.sendCommand(bluetoothGatt, "11061101"+calculateCRC16("11061101"),true);
             toggleGears(false);
             updateHighlightInfo(false);
         });
@@ -81,7 +102,9 @@ public class QianboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(QianboActivity.this,HouboActivity.class);
+
                 startActivity(intent);
+
             }
         });
 
@@ -133,6 +156,25 @@ public class QianboActivity extends AppCompatActivity {
         }
     }
 
+    //计算CRC校验位
+    public static String calculateCRC16(String input) {
+        // 将字符串转换为字节数组，使用 UTF-8 编码
+        byte[] data = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+
+        int crc = 0xFFFF;  // 初始值为 0xFFFF
+        for (byte b : data) {
+            crc ^= (b << 8);  // 将当前字节的高8位与CRC异或
+            for (int i = 0; i < 8; i++) {
+                if ((crc & 0x8000) != 0) {  // 判断最高位是否为1
+                    crc = (crc << 1) ^ 0x1021;  // 左移并与多项式0x1021异或
+                }
+                else {
+                    crc <<= 1;  // 否则只左移1位
+                }
+            }
+        }
+        return String.format("%04X", crc & 0xFFFF);
+    }
 
 
 

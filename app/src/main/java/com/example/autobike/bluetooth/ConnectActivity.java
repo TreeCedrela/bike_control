@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.autobike.QianboActivity;
 import com.example.map.R;
 import com.example.map.databinding.ActivityConnectBinding;
 
@@ -250,9 +251,9 @@ public class ConnectActivity extends AppCompatActivity {
         stopScan();
 
         //跳转页面
-       /* Intent intent = new Intent(this,DataExchangeActivity.class);
+        Intent intent = new Intent(this, QianboActivity.class);
         intent.putExtra("device",myDevice.getDevice());
-        startActivity(intent);*/
+        startActivity(intent);
 
 //        //初始化
 //        bleCallback = new BleCallback();
