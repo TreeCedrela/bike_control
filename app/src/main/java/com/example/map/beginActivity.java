@@ -62,6 +62,8 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
     public LatLonPoint prePoint;
     float avg_speed;
 
+    //record max average speed and judge valid speed
+    public float maxHourSpeed;
     private Polyline polyline;
     private long startTime;
     private long elapsedTime;
@@ -135,7 +137,9 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         //distance_sum 单位为km
                         float itemDistance = distanceItem.getDistance();
 
-                        distance_sum += (itemDistance / 1000.0f); // 将距离的单位转换为公里并累加
+                        //if item distance per second bigger than average speed cut it to be average speed
+                        float dist=itemDistance / 1000.0f;
+                        distance_sum += Math.min(dist, maxHourSpeed); // 将距离的单位转换为公里并累加
 
 
                         distance.setText(String.format("%4.2f ", distance_sum));  // 将距离显示在 distanceT 文本框中
@@ -299,10 +303,11 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                 }
                 LastAltitude = aMapLocation.getAltitude();
                 //速度
-                float speed = aMapLocation.getSpeed();
+                float speed= (float) (aMapLocation.getSpeed() * 3.6);
+                maxHourSpeed=Math.max(speed,maxHourSpeed);
 
                 hour_speed = findViewById(R.id.hour_speed);
-                hour_speed.setText(String.format("%.2f", speed * 3.6));
+                hour_speed.setText(String.format("%.2f",speed));
 
 
                 if (prePoint == null) {
@@ -326,7 +331,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                 prePoint.setLatitude(latitude);
                 prePoint.setLongitude(longitude);
 
-                showMsg(this, "速度" + speed);
+                showMsg(this, "速度" + maxHourSpeed);
 
                 LatLng currentLatLng = new LatLng(latitude, longitude);
 
