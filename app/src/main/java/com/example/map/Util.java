@@ -39,6 +39,8 @@ public class Util {
     public static final String Longitude = "longitude";
     public static final String ImageURI = "imageUri";
     public static final String TimeDate = "timeDate";
+    //status string
+    public static final String Status = "Status";
 
 
     public Util() {

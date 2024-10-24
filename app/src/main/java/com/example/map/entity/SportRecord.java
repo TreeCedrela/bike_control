@@ -1,23 +1,26 @@
-package com.example.map;
+package com.example.map.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
-public class MapItem {
+public class SportRecord {
     private String imageUrl;
     private float distanceSum,averageSpeed,elapsedTime,altitude;
-    private Date timeDate;
+    private LocalDate timeDate;
+    private Integer status;
 
 
-    public MapItem() {
+    public SportRecord() {
     }
 
-    public MapItem(String imageUrl, float distanceSum, float averageSpeed, float elapsedTime, float altitude, Date timeDate) {
+    public SportRecord(String imageUrl, float distanceSum, float averageSpeed, float elapsedTime, float altitude, LocalDate timeDate, Integer status) {
         this.imageUrl = imageUrl;
         this.distanceSum = distanceSum;
         this.averageSpeed = averageSpeed;
         this.elapsedTime = elapsedTime;
         this.altitude = altitude;
         this.timeDate = timeDate;
+        this.status = status;
     }
 
     /**
@@ -104,7 +107,7 @@ public class MapItem {
      * 获取
      * @return timeDate
      */
-    public Date getTimeDate() {
+    public LocalDate getTimeDate() {
         return timeDate;
     }
 
@@ -112,11 +115,27 @@ public class MapItem {
      * 设置
      * @param timeDate
      */
-    public void setTimeDate(Date timeDate) {
+    public void setTimeDate(LocalDate timeDate) {
         this.timeDate = timeDate;
     }
 
+    /**
+     * 获取
+     * @return status
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置
+     * @param status
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String toString() {
-        return "MapItem{imageUrl = " + imageUrl + ", distanceSum = " + distanceSum + ", averageSpeed = " + averageSpeed + ", elapsedTime = " + elapsedTime + ", altitude = " + altitude + ", timeDate = " + timeDate + "}";
+        return "SportRecord{imageUrl = " + imageUrl + ", distanceSum = " + distanceSum + ", averageSpeed = " + averageSpeed + ", elapsedTime = " + elapsedTime + ", altitude = " + altitude + ", timeDate = " + timeDate + ", status = " + status + "}";
     }
 }
