@@ -1,313 +1,449 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context="com.example.autobike.PeriActivity">
 
+    <!--使用线性布局-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="-134dp">
+        android:background="#F5F5F5"
+        android:orientation="vertical">
 
-        <com.amap.api.maps.MapView
-            android:id="@+id/map"
+        <!--Logo-->
+        <ImageView
+            android:id="@+id/LogoImage"
             android:layout_width="match_parent"
-            android:layout_height="144dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/map"
-            android:focusable="true"/>
+            android:layout_height="120dp"
+            android:layout_marginTop="50dp" />
 
+        <!--标题-->
+
+        <TextView
+            android:id="@+id/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#808080"
+            android:textSize="30dp"
+            android:textStyle="italic" />
+
+        <!--嵌套线性布局-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/white"
-            android:gravity="start|center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:allowUndo="true"
-                android:paddingEnd="4dp"
-                android:text="@string/gps"
-                android:textSize="16sp"
-                tools:ignore="RtlSymmetry" />
-
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="32dp"
-                android:contentDescription="@string/gps_icon"
-                android:src="@drawable/ic_launcher_signal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="13dp"
-            android:layout_weight="2"
-            android:background="#FFFFFF"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--嵌套线性布局-->
+            <LinearLayout
+                android:id="@+id/UserNameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                tools:ignore="NestedWeights">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <!--用户名输入-->
+                <EditText
+                    android:id="@+id/UserNameEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/translucent_edit"
+                    android:hint="输入用户名"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:textSize="24dp" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+            </LinearLayout>
 
-
-                        <android.widget.Button
-                            android:id="@+id/sport_record_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/blue"
-                            android:textColor="#FFFFFF"
-                            android:text="@string/sport_record"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"/>
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0">
-
-                        <TextView
-                            android:id="@+id/hour_speed"
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_marginTop="40dp"
-                            android:gravity="center"
-                            android:text="@string/hour_speed"
-                            android:textSize="70sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@id/description_hour_speed"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/description_hour_speed"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:layout_marginBottom="60dp"
-                            android:gravity="center"
-                            android:text="@string/description_hour_speed"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/hour_speed" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <android.widget.Button
-                            android:id="@+id/blueprint_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/blueprint"
-                            android:background="@drawable/blue"
-                            android:textColor="#FFFFFF"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--嵌套线性布局-->
+            <LinearLayout
+                android:id="@+id/PassWordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <!--密码输入-->
+                <EditText
+                    android:id="@+id/PassWordEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/translucent_edit"
+                    android:hint="输入用户密码"
+                    android:inputType="textPassword"
+                    android:maxLength="16"
+                    android:padding="15dp"
+                    android:singleLine="true"
+                    android:textSize="24dp" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+            </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/distance"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:text="@string/distance"
-                            android:textSize="35sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="1" />
+            <!--嵌套线性布局-->
 
-                        <TextView
-                            android:id="@+id/description_distance"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center"
-                            android:text="@string/description_distance"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@id/distance"
-                            app:layout_constraintVertical_weight="1" />
+            <CheckBox
+                android:id="@+id/remember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="自动登录" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/LayoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
+                <!--登录按钮-->
+                <Button
+                    android:id="@+id/LoginButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/translucent_button"
+                    android:padding="15dp"
+                    android:text="登   录"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
 
-                        <TextView
-                            android:id="@+id/sport_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:text="@string/sport_time"
-                            android:textSize="35sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="1" />
+                <!--注册按钮-->
+                <Button
+                    android:id="@+id/SignUpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/translucent_button"
+                    android:padding="15dp"
+                    android:text="注   册"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
 
-                        <TextView
-                            android:id="@+id/description_sport_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center"
-                            android:text="@string/description_sport_time"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@id/sport_time"
-                            app:layout_constraintVertical_weight="1" />
+            </LinearLayout>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/average_speed"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:text="@string/average_speed"
-                            android:textSize="35sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="1" />
-
-                        <TextView
-                            android:id="@+id/description_speed"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:gravity="center"
-                            android:text="@string/description_average_speed"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@id/average_speed"
-                            app:layout_constraintVertical_weight="1" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:background="@color/white"
-            android:gravity="center">
-
-
-            <ImageView
-                android:id="@+id/bike"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="@string/bike_icon"
-                android:src="@drawable/ic_launcher_foreground" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                tools:context=".MainActivity">
-
-                <android.widget.Button
-                    android:id="@+id/startButton"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/blue_circle"
-                    android:gravity="center"
-                    android:text="@string/begin"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <android.widget.Button
-                android:id="@+id/continueLastTime"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/blue_circle"
-                android:contentDescription="@string/bike_icon"
-                android:src="@drawable/ic_launcher_foreground"
-                android:text="@string/continue_last_times"
-                android:textColor="#FFFFFF" />
-
-        </LinearLayout>
     </LinearLayout>
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        tools:context=".MainActivity">-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/centeredButton"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Centered Button"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/main"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:background="@color/white"-->
+<!--tools:context=".MainActivity">-->
+
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:layout_editor_absoluteX="115dp"-->
+<!--    tools:layout_editor_absoluteY="-134dp">-->
+
+<!--    <com.amap.api.maps.MapView-->
+<!--        android:id="@+id/map"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="144dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:clickable="true"-->
+<!--        android:contentDescription="@string/map"-->
+<!--        android:focusable="true"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:gravity="start|center_vertical"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:allowUndo="true"-->
+<!--            android:paddingEnd="4dp"-->
+<!--            android:text="@string/gps"-->
+<!--            android:textSize="16sp"-->
+<!--            tools:ignore="RtlSymmetry" />-->
+
+
+<!--        <ImageView-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:contentDescription="@string/gps_icon"-->
+<!--            android:src="@drawable/ic_launcher_signal" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="13dp"-->
+<!--        android:layout_weight="2"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_weight="1"-->
+<!--            tools:ignore="NestedWeights">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:baselineAligned="false"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
+
+
+<!--                    <android.widget.Button-->
+<!--                        android:id="@+id/sport_record_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/blue"-->
+<!--                        android:textColor="#FFFFFF"-->
+<!--                        android:text="@string/sport_record"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintRight_toRightOf="parent"/>-->
+
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/hour_speed"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/hour_speed"-->
+<!--                        android:textSize="70sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintBottom_toTopOf="@id/description_hour_speed"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/description_hour_speed"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_marginBottom="60dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/description_hour_speed"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/hour_speed" />-->
+
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
+
+<!--                    <android.widget.Button-->
+<!--                        android:id="@+id/blueprint_button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/blueprint"-->
+<!--                        android:background="@drawable/blue"-->
+<!--                        android:textColor="#FFFFFF"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintRight_toRightOf="parent" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:baselineAligned="false"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/distance"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/distance"-->
+<!--                        android:textSize="35sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/description_distance"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/description_distance"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/distance"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/sport_time"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/sport_time"-->
+<!--                        android:textSize="35sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/description_sport_time"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/description_sport_time"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/sport_time"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/average_speed"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/average_speed"-->
+<!--                        android:textSize="35sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/description_speed"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="@string/description_average_speed"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/average_speed"-->
+<!--                        app:layout_constraintVertical_weight="1" />-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </LinearLayout>-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="130dp"-->
+<!--        android:background="@color/white"-->
+<!--        android:gravity="center">-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/bike"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:contentDescription="@string/bike_icon"-->
+<!--            android:src="@drawable/ic_launcher_foreground" />-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            tools:context=".MainActivity">-->
+
+<!--            <android.widget.Button-->
+<!--                android:id="@+id/startButton"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:background="@drawable/blue_circle"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/begin"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <android.widget.Button-->
+<!--            android:id="@+id/continueLastTime"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:background="@drawable/blue_circle"-->
+<!--            android:contentDescription="@string/bike_icon"-->
+<!--            android:src="@drawable/ic_launcher_foreground"-->
+<!--            android:text="@string/continue_last_times"-->
+<!--            android:textColor="#FFFFFF" />-->
+
+<!--    </LinearLayout>-->
+<!--</LinearLayout>-->
+
+<!--&lt;!&ndash;    <androidx.constraintlayout.widget.ConstraintLayout&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        tools:context=".MainActivity">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <Button&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/centeredButton"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="Centered Button"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </androidx.constraintlayout.widget.ConstraintLayout>&ndash;&gt;-->
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

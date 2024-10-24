@@ -1,5 +1,6 @@
 
 
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -11,7 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.map"
-        minSdk = 26
+        minSdk = 29
+//        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -33,12 +35,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
 
+    }
 
 
 
 }
 dependencies {
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -49,4 +56,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.easypermissions)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 }

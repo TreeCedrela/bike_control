@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".beginActivity">
+    tools:context="com.example.autobike.beginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MapActivity">
 
         <TextView
             android:id="@+id/locationTextView"
@@ -247,9 +247,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity"
+                tools:context=".MapActivity"
                 tools:ignore="ExtraText">
-
+     <!-- MainActivity <==> MapActivity -->
                 <SeekBar
                     android:id="@+id/seekBar"
                     android:layout_width="0dp"
