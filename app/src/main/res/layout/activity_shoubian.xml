@@ -144,7 +144,8 @@
             android:layout_height="180dp"
             android:src="@drawable/iconhou"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon2"
+            app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/swapBUtton"
             tools:ignore="MissingConstraints" />
 
@@ -153,10 +154,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/iconqian"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/icon1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon1"
-            app:layout_constraintTop_toBottomOf="@+id/swapBUtton"
+            app:layout_constraintTop_toTopOf="@+id/icon1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             tools:ignore="MissingConstraints" />
 
 
