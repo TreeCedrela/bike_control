@@ -10,7 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.autobike.utils.BleHelper;
+import com.example.autobike.bluetooth.BleCallback;
 import com.example.map.R;
 
 
@@ -19,7 +20,7 @@ public class QianboActivity extends AppCompatActivity {
     private Qianbbbb qianbbbb;
     private Button button1,button2,button5,button6;
     private SeekBar seekBar;
-    private TextView textView;
+    private TextView textView1,textview2;
     private boolean isLeftGearHighlighted=true;
     private boolean isRightGearHighlighted=false;
     public Button button3;
@@ -34,7 +35,8 @@ public class QianboActivity extends AppCompatActivity {
         setContentView(com.example.map.R.layout.activity_qianbo);
 
         seekBar=findViewById(R.id.weitiao);
-        textView=findViewById(R.id.textView);//逻辑不对需要改
+        textView1=findViewById(R.id.textView);//设备信息
+        textview2=findViewById(R.id.FrontValue);
         //············································
 
         //设置seekbar的监听
@@ -42,7 +44,7 @@ public class QianboActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 handleSeekBarProgressChanged(progress);
-                textView.setText(String.valueOf(progress));
+                textview2.setText(String.valueOf(progress));
             }
 
             @Override
@@ -57,12 +59,14 @@ public class QianboActivity extends AppCompatActivity {
         });
 
         qianbbbb=findViewById(R.id.qianbbbb);
-        button1=findViewById(R.id.button1);//假设按钮1的id为button1
-        button2=findViewById(R.id.button2);
-        button5=findViewById(R.id.button3);
-        button6=findViewById(R.id.button4);
-        nowqianbo=findViewById(R.id.nowqian);//假设按钮2的id为button2
+        button1=findViewById(R.id.button1);//减小速别
+        button2=findViewById(R.id.button2);//增加速别
+        button5=findViewById(R.id.button3);//单挡微调界面跳转
+        button6=findViewById(R.id.button4);//高低限位界面跳转
+        nowqianbo=findViewById(R.id.FrontDialSpeed);
         button1.setOnClickListener(view ->  {
+
+         // BleHelper.sendCommand(gatt,"",true);
             toggleGears(true);
             updateHighlightInfo(true);
         });
@@ -94,19 +98,11 @@ public class QianboActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialog();
+                Intent intent=new Intent(QianboActivity.this, qianbogaodixianwei.class);
+                startActivity(intent);
             }
         });
 
-    }
-
-    private void showAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提示")
-                .setMessage("请保证后拨链条处于第七挡位！")
-                .setPositiveButton("确定", null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     private void handleSeekBarProgressChanged(int progress){
@@ -130,6 +126,8 @@ public class QianboActivity extends AppCompatActivity {
     private void updateHighlightInfo(boolean isLeftHighlighted) {
         if (isLeftHighlighted) {
             nowqianbo.setText(getResources().getString(R.string.highlight_left_gear));
+           // nowqianbo.setText(BleCallback.buffer);
+
         } else {
             nowqianbo.setText(getResources().getString(R.string.highlight_right_gear));
         }

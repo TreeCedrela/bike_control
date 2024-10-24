@@ -1,4 +1,4 @@
-package com.example.autobike;
+package com.example.autobike.utils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,33 +14,33 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.autobike.utils.FrontLowerRejection;
+import com.example.autobike.QianboActivity;
+import com.example.autobike.qianbogaodixianwei;
 import com.example.map.R;
 
-public class qianbogaodixianwei extends AppCompatActivity {
+public class FrontLowerRejection extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(com.example.map.R.layout.activity_qianbogaodixianwei);
+        setContentView(R.layout.activity_front_lower_rejection);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        SeekBar seekBar = findViewById(R.id.jiaozhungao);
+        SeekBar seekBar = findViewById(R.id.jiaozhunlow);
         ImageButton addButton = findViewById(R.id.addbutton);
         ImageButton decreaseButton = findViewById(R.id.dreasebutton);
-        TextView textView = findViewById(R.id.HighLimitValue);
+        TextView textView = findViewById(R.id.LowLimitValue);
         ImageButton backtoQianboButton=findViewById(R.id.backtoQianbo);
-        Button buttondi=findViewById(R.id.di);
+        Button buttonhigh=findViewById(R.id.gao);
 
-        buttondi.setOnClickListener(new View.OnClickListener() {
+        buttonhigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(qianbogaodixianwei.this, FrontLowerRejection.class);
+                Intent intent=new Intent(FrontLowerRejection.this, qianbogaodixianwei.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +48,7 @@ public class qianbogaodixianwei extends AppCompatActivity {
         backtoQianboButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(qianbogaodixianwei.this, MainActivity.class);
+                Intent intent = new Intent(FrontLowerRejection.this, QianboActivity.class);
                 startActivity(intent);
             }
         });
@@ -92,8 +92,8 @@ public class qianbogaodixianwei extends AppCompatActivity {
             int progress;
             progress = seekBar.getProgress();
             progress--;
-            if (progress < -200) {
-                progress =-200;
+            if (progress < 0) {
+                progress = 0;
             }
             seekBar.setProgress(progress);
             textView.setText("微调值："+progress);
