@@ -121,7 +121,7 @@ public class RecordDBHelper extends SQLiteOpenHelper {
 
 
     //update a sport record by id of param's record
-    public Long UpdateRecord(SportRecord record) {
+    public Long UpdateRecordByID(SportRecord record,Integer ID) {
         //TODO impl it by database sql
 
         return 0L;
