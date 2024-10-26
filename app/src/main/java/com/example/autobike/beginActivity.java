@@ -1,6 +1,18 @@
 package com.example.autobike;
 
-import static com.example.autobike.Util.*;
+import static com.example.autobike.Util.Altitude;
+import static com.example.autobike.Util.AverageSpeed;
+import static com.example.autobike.Util.DistanceSum;
+import static com.example.autobike.Util.ElapsedTime;
+import static com.example.autobike.Util.ExtraDATE;
+import static com.example.autobike.Util.Latitude;
+import static com.example.autobike.Util.Latitudes;
+import static com.example.autobike.Util.Longitude;
+import static com.example.autobike.Util.Longitudes;
+import static com.example.autobike.Util.initLocation;
+import static com.example.autobike.Util.initMap;
+import static com.example.autobike.Util.requestPermission;
+import static com.example.autobike.Util.showMsg;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,8 +41,11 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.DistanceItem;
 import com.amap.api.services.route.DistanceSearch;
 import com.example.map.R;
+import com.example.autobike.database.RecordDBHelper;
+import com.example.autobike.entity.SportRecord;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -63,6 +78,8 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
     public LatLonPoint prePoint;
     float avg_speed;
 
+    //record max average speed and judge valid speed
+    public float maxHourSpeed;
     private Polyline polyline;
     private long startTime;
     private long elapsedTime;
@@ -98,6 +115,10 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
     private double StartAltitude;
     private double LastAltitude;
 
+    private RecordDBHelper recordDBHelper;
+    private SportRecord sportRecord;
+
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +144,12 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
 
         aMap = mMapView.getMap();
 
-        initMap(savedInstanceState, this, mMapView, aMap,null);
+        sportRecord=new SportRecord("pic/"+LocalDate.now().toString(),0,0,0,0, LocalDate.now(),0);
+
+        recordDBHelper=RecordDBHelper.getInstance(this);
+        recordDBHelper.InsertRecord(sportRecord);
+
+        initMap(savedInstanceState, this, mMapView, aMap, null);
 
         try {
             distanceSearch = new DistanceSearch(this);
@@ -136,10 +162,26 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         //distance_sum 单位为km
                         float itemDistance = distanceItem.getDistance();
 
-                        distance_sum = (distance_sum + itemDistance) / 1000;
+                        float dist=itemDistance / 1000.0f;  // 将距离的单位转换为公里并累加
+                        if (maxHourSpeed!=0){
+                        //if item distance per second bigger than average speed cut it to be average speed
+                            distance_sum += Math.min(dist, maxHourSpeed);
+                        }else{
+                            distance_sum += Math.min(dist, 0.5);
+                        }
+
 
                         distance.setText(String.format("%4.2f ", distance_sum));  // 将距离显示在 distanceT 文本框中
                         Log.d("Distance", "Distance: " + distance_sum + " meters");
+
+                        //make record update
+                        sportRecord.setAltitude((float) (LastAltitude-StartAltitude));
+                        sportRecord.setDistanceSum(distance_sum);
+                        sportRecord.setElapsedTime(elapsedTime);
+                        sportRecord.setTimeDate(LocalDate.now());
+                        sportRecord.setAverageSpeed(avg_speed);
+                        // update
+                        recordDBHelper.UpdateRecord(sportRecord);
                     } else {
                         Log.i("BeginActivity", "onDistanceSearched: no distance,try move");
                     }
@@ -151,7 +193,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             throw new RuntimeException(e);
         }
 
-        polyline = aMap.addPolyline(new PolylineOptions().color(Color.BLUE)   // 轨迹线的颜色
+        polyline = aMap.addPolyline(new PolylineOptions().color(Color.parseColor("#11AEF7"))   // 轨迹线的颜色
                 .width(10f)          // 轨迹线的宽度
                 .geodesic(true));    // 使用大地曲线来计算最短路径
 
@@ -183,6 +225,11 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+                // 如果进度超过 80%，强制将进度设置为 80
+                if (progress > 90) {
+                    seekBar.setProgress(90); // 强制进度最大为80%
+                }
+
             }
 
             @Override
@@ -193,7 +240,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
-                if (seekBar.getProgress() == seekBar.getMax()) {
+                if (seekBar.getProgress() == 90) {
 
                     // 停止拖动时停止计时
                     endTime = System.currentTimeMillis();
@@ -209,6 +256,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         longitudes[i] = pathPoints.get(i).longitude;
                     }
 
+
                     //轨迹图
                     intent.putExtra(Latitudes, latitudes);
                     intent.putExtra(Longitudes, longitudes);
@@ -216,15 +264,25 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     intent.putExtra(ElapsedTime, elapsedTime);
                     // 将格式化后的日期传递给OverActivity
                     intent.putExtra(ExtraDATE, formattedDate);
+                    double distance = LastAltitude - StartAltitude;
                     //海拔爬升值
-                    intent.putExtra(Altitude, LastAltitude - StartAltitude);
+                    intent.putExtra(Altitude, distance);
                     //平均速度
-                    intent.putExtra(AverageSpeed,avg_speed);
+                    intent.putExtra(AverageSpeed, avg_speed);
                     //里程
-                    intent.putExtra(DistanceSum,distance_sum);
+                    intent.putExtra(DistanceSum, distance_sum);
                     //经纬度坐标
-                    intent.putExtra(Latitude,prePoint.getLatitude());
-                    intent.putExtra(Longitude,prePoint.getLongitude());
+                    intent.putExtra(Latitude, prePoint.getLatitude());
+                    intent.putExtra(Longitude, prePoint.getLongitude());
+
+                    // update record as over status
+                    sportRecord.setStatus(1);
+                    sportRecord.setElapsedTime(elapsedTime);
+                    sportRecord.setDistanceSum(distance_sum);
+                    sportRecord.setAverageSpeed(avg_speed);
+                    sportRecord.setAltitude((float) distance);
+                    //update
+                    recordDBHelper.UpdateRecord(sportRecord);
 
                     startActivity(intent);
                     onDestroy();
@@ -294,10 +352,11 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                 }
                 LastAltitude = aMapLocation.getAltitude();
                 //速度
-                float speed = aMapLocation.getSpeed();
+                float speed= (float) (aMapLocation.getSpeed() * 3.6);
+                maxHourSpeed=Math.max(speed,maxHourSpeed);
 
                 hour_speed = findViewById(R.id.hour_speed);
-                hour_speed.setText(String.format("%.2f", speed * 3.6));
+                hour_speed.setText(String.format("%.2f",speed));
 
 
                 if (prePoint == null) {
@@ -305,22 +364,19 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     prePoint = new LatLonPoint(latitude, longitude);
                     latLonPoints.add(prePoint);
                 } else {
-                    latLonPoints.clear();
+                    // 每次更新将上一个点和当前点加入查询
+                    //latLonPoints.clear();
                     latLonPoints.add(prePoint);
+
                 }
-
                 final DistanceSearch.DistanceQuery distanceQuery = new DistanceSearch.DistanceQuery();
-
                 distanceQuery.setOrigins(latLonPoints);
-                //设置当前为终点
                 distanceQuery.setDestination(new LatLonPoint(latitude, longitude));
-//                distanceQuery.setDestination(BeiJingTianAnMen);
 
                 distanceQuery.setType(DistanceSearch.TYPE_DRIVING_DISTANCE);
-
                 distanceSearch.calculateRouteDistanceAsyn(distanceQuery);
 
-                //update prePoint
+
                 prePoint.setLatitude(latitude);
                 prePoint.setLongitude(longitude);
 

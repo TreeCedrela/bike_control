@@ -1,12 +1,12 @@
-package com.example.map.database;
+package com.example.autobike.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.map.Util;
-import com.example.map.entity.SportRecord;
+import com.example.autobike.Util;
+import com.example.autobike.entity.SportRecord;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

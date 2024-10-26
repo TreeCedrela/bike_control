@@ -21,7 +21,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.autobike.databinding.ActivityMainBinding;
+import com.example.map.R;
+import com.example.map.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;

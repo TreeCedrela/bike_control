@@ -1,7 +1,6 @@
-package com.example.map.entity;
+package com.example.autobike.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class SportRecord {
     private String imageUrl;
