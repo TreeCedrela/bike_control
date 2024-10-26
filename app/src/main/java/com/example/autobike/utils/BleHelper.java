@@ -75,24 +75,8 @@ public class BleHelper {
         return result;
     }
 
-    //1.command1
-    public static boolean sendCommand1(BluetoothGatt gatt, String command, boolean isResponse) {
-        //获取服务
-        BluetoothGattService service = gatt.getService(UUID.fromString(BleConstant.SERVICE_UUID));
-        //获取特性
-        BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(BleConstant.TRANSMIT_UUID));
 
-        //写入类型  WRITE_TYPE_DEFAULT  默认有响应， WRITE_TYPE_NO_RESPONSE  无响应。
-        characteristic.setWriteType(isResponse ?
-                BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT : BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 
-        //command ="41";
-        //将字符串command转Byte后进行写入
-        characteristic.setValue(ByteUtils.hexStringToBytes(command));
-        boolean result = gatt.writeCharacteristic(characteristic);
-        Log.d("TAG", result ? "写入初始化成功：" + command : "写入初始化失败：" + command);
-        return result;
-    }
 }
 
 

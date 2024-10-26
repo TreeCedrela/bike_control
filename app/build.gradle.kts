@@ -1,6 +1,4 @@
 
-
-
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -13,7 +11,6 @@ android {
     defaultConfig {
         applicationId = "com.example.map"
         minSdk = 29
-//        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -36,11 +33,10 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         dataBinding = true
+        viewBinding = true
 
     }
-
 
 
 }
@@ -58,4 +54,5 @@ dependencies {
     implementation(libs.easypermissions)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation("androidx.databinding:databinding-runtime:8.7.1")
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
@@ -22,22 +23,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.map.R;
-import com.example.map.databinding.ActivityMainBinding;
+import com.example.map.databinding.ActivityConnectBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressLint("MissingPermission")
-public class MainActivity extends AppCompatActivity {
+public class ConnectActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> enableBluetooth;         //打开蓝牙意图
     private ActivityResultLauncher<String> requestBluetoothConnect; //请求蓝牙连接权限意图
     private ActivityResultLauncher<String> requestBluetoothScan;    //请求蓝牙扫描权限意图
     private ActivityResultLauncher<String> requestLocation;         //请求定位权限
 
-    private ActivityMainBinding binding;
+    private ActivityConnectBinding binding;
 
-    private final String TAG = MainActivity.class.getSimpleName();
+    private final String TAG = ConnectActivity.class.getSimpleName();
     //获取系统蓝牙适配器
     private BluetoothAdapter mBluetoothAdapter;
     //扫描者
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         registerIntent();
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityConnectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
     }
@@ -249,36 +250,17 @@ public class MainActivity extends AppCompatActivity {
         stopScan();
 
         //跳转页面
-        Intent intent = new Intent(this,DataExchangeActivity.class);
+       /* Intent intent = new Intent(this,DataExchangeActivity.class);
         intent.putExtra("device",myDevice.getDevice());
-        startActivity(intent);
+        startActivity(intent);*/
 
-        //获取远程设备
-//        BluetoothDevice device = myDevice.getDevice();
-        //连接gatt
-//        device.connectGatt(this, false, new BluetoothGattCallback() {
-//            @Override
-//            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-//                switch (newState) {
-//                    case BluetoothProfile.STATE_CONNECTED://连接成功
-//                        Log.d(TAG,"连接成功");
-//                        runOnUiThread(() -> {
-//                            layConnectingLoading.setVisibility(View.GONE);
-//                            showMsg("连接成功");
-//                        });
-//                        break;
-//                    case BluetoothProfile.STATE_DISCONNECTED://断开连接
-//                        Log.d(TAG,"断开连接");
-//                        runOnUiThread(() -> {
-//                            layConnectingLoading.setVisibility(View.GONE);
-//                            showMsg("断开连接");
-//                        });
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        });
+//        //初始化
+//        bleCallback = new BleCallback();
+//        //获取上个页面传递过来的设备
+//        BluetoothDevice device = getIntent().getParcelableExtra("device");
+//        //连接gatt 设置Gatt回调
+//        bluetoothGatt = device.connectGatt(this, false, bleCallback);
+//        etCommand = findViewById(R.id.et_command);
 
 
     }
