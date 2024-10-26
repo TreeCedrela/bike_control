@@ -249,7 +249,7 @@
                 android:layout_height="match_parent"
                 tools:context=".MapActivity"
                 tools:ignore="ExtraText">
-
+     <!-- MainActivity <==> MapActivity -->
                 <SeekBar
                     android:id="@+id/seekBar"
                     android:layout_width="0dp"

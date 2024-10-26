@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -34,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import java.util.Locale;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -43,7 +41,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class continueActivity extends AppCompatActivity implements AMapLocationListener,LocationSource, DistanceSearch.OnDistanceSearchListener {
     public MapView mMapView = null;
     public AMap aMap =null;
-    public LocationSource.OnLocationChangedListener mListener=null;
+    public OnLocationChangedListener mListener=null;
 
     //外部学习所加
 
@@ -126,7 +124,7 @@ public class continueActivity extends AppCompatActivity implements AMapLocationL
                     timerHandler.removeCallbacks(timerRunnable); // 停止计时
                     elapsedTime = endTime - startTime; // 计算总耗时
 
-                    Intent intent=new Intent(continueActivity.this,overActivity.class);
+                    Intent intent=new Intent(continueActivity.this, overActivity.class);
 
                     double[] latitudes = new double[pathPoints.size()];
                     double[] longitudes = new double[pathPoints.size()];
