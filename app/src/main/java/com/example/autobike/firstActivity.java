@@ -1,9 +1,10 @@
 package com.example.autobike;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,32 +19,19 @@ public class firstActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_first);
 
-        Button button = findViewById(R.id.button);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
+        // 获取截图文件路径
+        String screenshotPath = getIntent().getStringExtra("screenshot_path");
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this,recordActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (screenshotPath != null) {
+            // 显示截图
+            ImageView imageView = findViewById(R.id.imageView12);
+            Bitmap bitmap = BitmapFactory.decodeFile(screenshotPath);
+            imageView.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, "未接收到截图", Toast.LENGTH_SHORT).show();
+        }
 
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(firstActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }

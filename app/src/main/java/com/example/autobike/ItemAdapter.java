@@ -1,6 +1,10 @@
 package com.example.autobike;
 
-import static com.example.autobike.Util.*;
+import static com.example.autobike.Util.Altitude;
+import static com.example.autobike.Util.AverageSpeed;
+import static com.example.autobike.Util.DistanceSum;
+import static com.example.autobike.Util.ElapsedTime;
+import static com.example.autobike.Util.ImageURI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,16 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.map.R;
+import com.example.autobike.entity.SportRecord;
 
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private final List<MapItem> itemList;
+    private final List<SportRecord> itemList;
     private final Context context;
 
 
-    public ItemAdapter(List<MapItem> itemList, Context context) {
+
+    public ItemAdapter(List<SportRecord> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
     }
@@ -41,7 +47,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        holder.textView.setText(dataList.get(position));
-        MapItem mapItem = itemList.get(position);
+        SportRecord mapItem = itemList.get(position);
         holder.VDistanceSum.setText(String.format("%4.2f", mapItem.getDistanceSum()));
 
 //        holder.VDistanceSum.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(mapItem.getTimeDate()));
@@ -87,6 +93,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             VMapButton = itemView.findViewById(R.id.itemBottom);
             VTimeDate = itemView.findViewById(R.id.timeDate);
         }
+
+
     }
 
 }

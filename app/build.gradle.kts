@@ -1,7 +1,7 @@
+
 plugins {
     alias(libs.plugins.android.application)
 }
-
 
 android {
 
@@ -39,6 +39,7 @@ android {
     }
 
 
+}
 dependencies {
 
     implementation(libs.appcompat)
@@ -54,9 +55,4 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation("androidx.databinding:databinding-runtime:8.7.1")
-
-
-    }
-
-
 }
