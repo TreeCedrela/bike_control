@@ -86,23 +86,29 @@ public class QianboActivity extends AppCompatActivity {
         nowqianbo=findViewById(R.id.FrontDialSpeed);
         button1.setOnClickListener(view ->  {
 
-            BleHelper.sendCommand(bluetoothGatt," ",true);
+            BleHelper.sendCommand(bluetoothGatt,"110600005B73",true);
             toggleGears(true);
             updateHighlightInfo(true);
         });
 
         button2.setOnClickListener(view ->  {
-            BleHelper.sendCommand(bluetoothGatt, "11061101"+calculateCRC16("11061101"),true);
+            BleHelper.sendCommand(bluetoothGatt, "12060000C0AF",true);
             toggleGears(false);
             updateHighlightInfo(false);
         });
 
+        /*
+         * 前拨微调加减
+         * “+”：BleHelper.sendCommand(bluetoothGatt, "2C0600004E1C",true);
+         * “-”：BleHelper.sendCommand(bluetoothGatt, "14060000E736",true);
+         *
+         */
         button3=findViewById(R.id.houbo);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(QianboActivity.this,HouboActivity.class);
-
+                //intent.putExtra("device",myDevice.getDevice());
                 startActivity(intent);
 
             }

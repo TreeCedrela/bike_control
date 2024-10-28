@@ -94,6 +94,7 @@ public class HouboActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
+                BleHelper.sendCommand(bluetoothGatt, "0E060000943A",true);
                 if (houbbbb.currentHighlightedIndex > 0) {
                     houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] - 10;
                     houbbbb.currentHighlightedIndex--;
@@ -108,7 +109,7 @@ public class HouboActivity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BleHelper.sendCommand(bluetoothGatt, "11061101"+calculateCRC16("11061101"),true);
+                BleHelper.sendCommand(bluetoothGatt, "0D060000E28E",true);
 
                 if (houbbbb.currentHighlightedIndex < 11) {
                     houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] - 10;

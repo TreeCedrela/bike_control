@@ -26,7 +26,7 @@ public class BleCallback extends BluetoothGattCallback {
     public static int front_speed2 = 0;              //存储前拨速别2对应的电机转动角度
     public static int front_speed3 = 0;              //存储前拨速别3对应的电机转动角度
     public static int current_front_speed = 0 ;          //存储当前速别的电机转动角度
-
+    public static int current_rear_speed = 0 ;
     public static String crc = "" ;                          //存储CRC校验位
 
 
@@ -178,35 +178,20 @@ public class BleCallback extends BluetoothGattCallback {
             buffer = buffer + s;
             app_edition = hexToAscii(s);
         }
-        //3.获取前拨速别
-        //BleHelper.sendCommand(gatt, "11030000B083",true);
-        if(content.substring(0,4).equals("1103") ){
+
+        //3.当前前拨速别
+        if(content.substring(0,2).equals("15") ){
             buffer = "";
-            s=content.substring(4,8);
+            s=content.substring(4,6);
             buffer = buffer + s;
             current_front_speed = Integer.parseInt(buffer,16);
         }
-        //4.调整前拨速别
-        //BleHelper.sendCommand(gatt, "1106"+front_speed1+crc,true);
-        if(content.substring(0,4).equals("1106") ){
+        //4.当前后拨速别
+        if(content.substring(0,2).equals("16") ){
             buffer = "";
-            s=content.substring(4,8);
+            s=content.substring(4,6);
             buffer = buffer + s;
-            current_front_speed = Integer.parseInt(buffer,16);
-            /*
-             * 判断调整后的速别位于哪个档，并对不同速别进行更新
-             * （目前 范围值还需改动）
-             */
-            if(current_front_speed>801 && current_front_speed<1201){
-                front_speed1 = current_front_speed ;
-            }
-            if(current_front_speed>2980 && current_front_speed<3380){
-                front_speed2 = current_front_speed ;
-            }
-            if(current_front_speed>5160 && current_front_speed<5560){
-                front_speed3 = current_front_speed ;
-            }
-
+            current_rear_speed = Integer.parseInt(buffer,16);
         }
 
 
