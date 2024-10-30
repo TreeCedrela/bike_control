@@ -23,7 +23,7 @@ public class QianboActivity extends AppCompatActivity {
     private Qianbbbb qianbbbb;
     private Button button1,button2,button5,button6;
     private SeekBar seekBar;
-    private TextView textView1,textview2;
+    private TextView textView1,textview2,devicenumber,frontdialspeed;
     private boolean isLeftGearHighlighted=true;
     private boolean isRightGearHighlighted=false;
     public Button button3;
@@ -55,7 +55,9 @@ public class QianboActivity extends AppCompatActivity {
 
         seekBar=findViewById(R.id.weitiao);
         textView1=findViewById(R.id.textView);//设备信息
-        textview2=findViewById(R.id.FrontValue);
+        textview2=findViewById(R.id.FrontValue);//微调值存储
+        devicenumber=findViewById(R.id.DeviceNumber);//设备唯一码
+        frontdialspeed=findViewById(R.id.FrontDialSpeed);//前拨速别
         //············································
 
         //设置seekbar的监听
