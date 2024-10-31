@@ -47,7 +47,7 @@
             app:layout_constraintLeft_toRightOf="@id/head_portrait"
             app:layout_constraintRight_toLeftOf="@id/timeDate"
             app:layout_constraintTop_toTopOf="@id/username"
-            app:srcCompat="@drawable/ic_launcher_foreground"
+            app:srcCompat="@drawable/bike"
             tools:layout_editor_absoluteX="110dp"
             tools:layout_editor_absoluteY="86dp" />
 
@@ -168,7 +168,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.764"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                app:srcCompat="@drawable/bike" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
