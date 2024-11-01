@@ -258,12 +258,12 @@
         android:id="@+id/DreaseFrontDialNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/dreasefront"
+        android:src="@mipmap/reducefront"
+        android:background="@mipmap/reducefront"
         app:layout_constraintBottom_toBottomOf="@+id/FrontValue"
         app:layout_constraintEnd_toStartOf="@+id/FrontValue"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="@+id/FrontValue"
-        android:background="@mipmap/dreasefront"/>
+        app:layout_constraintTop_toTopOf="@+id/FrontValue" />
 
     <ImageButton
         android:id="@+id/AddFrontDialNumber"
@@ -274,7 +274,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/FrontValue"
         app:layout_constraintTop_toTopOf="@+id/FrontValue"
-        android:background="@mipmap/dreasefront"/>
+        android:background="@mipmap/addfront"/>
 
 
 

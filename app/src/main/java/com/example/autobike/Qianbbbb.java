@@ -11,12 +11,16 @@ public  class Qianbbbb extends View {
 
     private Paint paint;
     private int centerX,centerY;
-    private int innerRadius,outerRadius;
+    private int baseRadius;
+    private int ringSpacing;//圆环间距
 
+    // 新增：用于记录当前高亮的圆环索引，0表示最内圈，1表示中间圈，2表示最外圈
+    private int currentHighlightedRing = 0;
 
-
-    private boolean isQianbo1Highlighted=true;//前拨1是否高亮
-    private boolean isQianbo2Highlighted=false;//前拨2是否高亮
+    // 新增：定义三个圆环是否高亮的状态变量
+    private boolean isQianbo1Highlighted = false;
+    private boolean isQianbo2Highlighted = false;
+    private boolean isQianbo3Highlighted = true;
 
     public Qianbbbb(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,33 +42,69 @@ public  class Qianbbbb extends View {
 
         centerX = width / 2;
         centerY = height / 2;
-        innerRadius=width/8;
-        outerRadius=width/4;
+        // 设置基础半径和圆环间距
+        baseRadius = width / 8;
+        ringSpacing = width / 12;
+
 
     }
+    
 
-    //设置前拨1高亮
-    public void setQianbo1Highlighted(boolean highlighted){
-        isQianbo1Highlighted=highlighted;
-        invalidate();
-    }
-
-    //设置前拨2高亮
-    public void setQianbo2Highlighted(boolean highlighted){
-        isQianbo2Highlighted=highlighted;
-        invalidate();
-    }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setStrokeWidth(10);
-        paint.setColor(isQianbo1Highlighted?Color.YELLOW:Color.GRAY);
-       canvas.drawCircle(centerX,centerY,innerRadius,paint);
+        int innerRadius=baseRadius;
+        int middleRadius=baseRadius+ringSpacing;
+        int outerRadius=baseRadius+ringSpacing*2;
+        // 绘制最内圈圆环
+        paint.setColor(isQianbo1Highlighted? Color.YELLOW : Color.GRAY);
+        canvas.drawCircle(centerX, centerY, innerRadius, paint);
 
-       paint.setColor(isQianbo2Highlighted?Color.YELLOW:Color.GRAY);
-       canvas.drawCircle(centerX,centerY,outerRadius,paint);
+        // 绘制中间圈圆环
+        paint.setColor(isQianbo2Highlighted? Color.YELLOW : Color.GRAY);
+        canvas.drawCircle(centerX, centerY, middleRadius, paint);
+
+        // 绘制最外圈圆环
+        paint.setColor(isQianbo3Highlighted? Color.YELLOW : Color.GRAY);
+        canvas.drawCircle(centerX, centerY, outerRadius, paint);
+    }
+
+    public void setNextInnerRingHighlighted() {
+        if (currentHighlightedRing > 0) {
+            currentHighlightedRing--;
+        }
+        updateRingHighlightStatus();
+    }
+
+    public void setNextOuterRingHighlighted() {
+        if (currentHighlightedRing < 2) {
+            currentHighlightedRing++;
+        }
+        updateRingHighlightStatus();
+    }
+
+    private void updateRingHighlightStatus() {
+        currentHighlightedRing = (currentHighlightedRing + 1) % 3;
+
+        isQianbo1Highlighted = currentHighlightedRing == 0;
+        isQianbo2Highlighted = currentHighlightedRing == 1;
+        isQianbo3Highlighted = currentHighlightedRing == 2;
+
+        invalidate();
+    }
+
+    public boolean isQianbo1Highlighted() {
+        return isQianbo1Highlighted;
+    }
+    public boolean isQianbo2Highlighted() {
+        return isQianbo2Highlighted;
+    }
+
+    public boolean isQianbo3Highlighted() {
+        return isQianbo3Highlighted;
     }
 }
 
