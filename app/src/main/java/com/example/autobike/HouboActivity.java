@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -26,8 +27,8 @@ import com.example.map.R;
 public class HouboActivity extends AppCompatActivity {
     private Houbbbb houbbbb;//用于储存每根线的状态
     private Button leftButton,rightButton,button1,button3,button7,button8;
-    private SeekBar seekBar;
-    private TextView nowhoubo;
+    private TextView BehindDialSpeed,BehindValue,Behinddevicenumber;
+    private ImageView behindbattery;
 
 
     private BluetoothGatt bluetoothGatt;
@@ -37,7 +38,7 @@ public class HouboActivity extends AppCompatActivity {
 
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +59,18 @@ public class HouboActivity extends AppCompatActivity {
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
         houbbbb=findViewById(R.id.houbbbb);
-        leftButton=findViewById(R.id.button1_1);
-        rightButton=findViewById(R.id.button2_2);
-        seekBar=findViewById(R.id.weitiao_2);
+        leftButton=findViewById(R.id.BehindReduceButton);
+        rightButton=findViewById(R.id.BehindAddButton);
         button3=findViewById(R.id.shoubian);
         button1=findViewById(R.id.qianbo);
-        nowhoubo=findViewById(R.id.nowhou);
+        BehindDialSpeed=findViewById(R.id.BehindDialSpeed);
+        BehindValue=findViewById(R.id.BehindValue);//
         button7=findViewById(R.id.buttonhoubo1);
-        button8=findViewById(R.id.buttonhoubojiaozhun);
+        button8=findViewById(R.id.buttonhoubojiaozhun);//校准界面跳转
+        Button addbehindvale=findViewById(R.id.AddBehindValue);//增加微调值
+        Button reducebehindvale=findViewById(R.id.DreaseBehindValue);//微调值减小
+        behindbattery=findViewById(R.id.BehindBattery);//后拨电池
+        Behinddevicenumber=findViewById(R.id.DeviceNumberBehind);//设备型号
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +106,7 @@ public class HouboActivity extends AppCompatActivity {
                     houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] + 10;
                     houbbbb.invalidate();
 
-                    nowhoubo.setText((houbbbb.currentHighlightedIndex+1)+"spr");
+                    BehindDialSpeed.setText((houbbbb.currentHighlightedIndex+1)+"spr");
                 }
             }
         });
@@ -116,44 +121,12 @@ public class HouboActivity extends AppCompatActivity {
                     houbbbb.currentHighlightedIndex++;
                     houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] + 10;
                     houbbbb.invalidate();
-                    nowhoubo.setText((houbbbb.currentHighlightedIndex+1)+"spr");
+                    BehindDialSpeed.setText((houbbbb.currentHighlightedIndex+1)+"spr");
                 }
             }
         });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (progress == 0) {
-                    if ((houbbbb.currentHighlightedIndex > 0)) {
-                        houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] - 10;
-                        houbbbb.currentHighlightedIndex--;
-                        houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] + 10;
-                        seekBar.invalidate();
-                        nowhoubo.setText((houbbbb.currentHighlightedIndex+1)+"spr");
-                    }
-                } else if (progress == 500) {
-                    if (houbbbb.currentHighlightedIndex < 11) {
-                        houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] - 10;
-                        houbbbb.currentHighlightedIndex++;
-                        houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] + 10;
-                        seekBar.invalidate();
-                        nowhoubo.setText((houbbbb.currentHighlightedIndex+1)+"spr");
-                    }
-                }
 
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     private void showAlertDialog() {

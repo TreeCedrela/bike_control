@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class QianboActivity extends AppCompatActivity {
     public Button button4;
     // 新增：用于存储当前的数值，代替SeekBar的进度值
     private int frontDialNumber = 0;
+    private ImageView frontbattery;
 
 
     private BluetoothGatt bluetoothGatt;
@@ -60,6 +62,7 @@ public class QianboActivity extends AppCompatActivity {
 
 
         qianbbbb = findViewById(R.id.qianbbbb);
+        frontbattery=findViewById(R.id.FrontBattery);//前拨电池
         button1 = findViewById(R.id.button1);//减小速别
         button2 = findViewById(R.id.button2);//增加速别
         button5 = findViewById(R.id.button3);//单挡微调界面跳转
