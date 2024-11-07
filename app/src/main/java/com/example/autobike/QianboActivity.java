@@ -51,6 +51,16 @@ public class QianboActivity extends AppCompatActivity {
         //连接gatt 设置Gatt回调
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
+        Button jumpButton=findViewById(R.id.button7);
+
+        jumpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(QianboActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         seekBar=findViewById(R.id.weitiao);

@@ -163,5 +163,24 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             tools:ignore="MissingConstraints" />
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/battery"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="77dp"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/qianbo"/>
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运动"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"
+            app:layout_constraintBottom_toTopOf="@+id/shoubian"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

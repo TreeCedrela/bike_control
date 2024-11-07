@@ -81,6 +81,16 @@ public class Shoubian extends AppCompatActivity {
         button2=findViewById(R.id.houbo);
         button3=findViewById(R.id.shoubian);
 
+        Button jumpButton=findViewById(R.id.button5);
+
+        jumpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Shoubian.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

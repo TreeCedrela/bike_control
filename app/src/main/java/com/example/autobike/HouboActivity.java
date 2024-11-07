@@ -49,6 +49,16 @@ public class HouboActivity extends AppCompatActivity {
             return insets;
         });
 
+        Button jumpButton=findViewById(R.id.button8);
+
+        jumpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(HouboActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         //初始化
         bleCallback = new BleCallback();
