@@ -64,7 +64,7 @@ public class HouboActivity extends AppCompatActivity {
         button3=findViewById(R.id.shoubian);
         button1=findViewById(R.id.qianbo);
         BehindDialSpeed=findViewById(R.id.BehindDialSpeed);
-        BehindValue=findViewById(R.id.BehindValue);//
+        BehindValue=findViewById(R.id.BehindValue);//后拨校准
         button7=findViewById(R.id.buttonhoubo1);
         button8=findViewById(R.id.buttonhoubojiaozhun);//校准界面跳转
         Button addbehindvale=findViewById(R.id.AddBehindValue);//增加微调值

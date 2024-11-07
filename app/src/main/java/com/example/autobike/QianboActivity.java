@@ -62,7 +62,7 @@ public class QianboActivity extends AppCompatActivity {
 
 
         qianbbbb = findViewById(R.id.qianbbbb);
-        frontbattery=findViewById(R.id.FrontBattery);//前拨电池
+        frontbattery=findViewById(R.id.FrontBattery);//前拨电池电量
         button1 = findViewById(R.id.button1);//减小速别
         button2 = findViewById(R.id.button2);//增加速别
         button5 = findViewById(R.id.button3);//单挡微调界面跳转

@@ -238,7 +238,8 @@
         app:layout_constraintStart_toEndOf="@+id/DeviceNumber"
         app:layout_constraintTop_toTopOf="@+id/DeviceNumber"
         app:layout_constraintHorizontal_bias="0.05"
-        app:srcCompat="@drawable/battery" />
+        app:srcCompat="@drawable/battery"
+        />
 
     <ImageButton
         android:id="@+id/DreaseFrontDialNumber"

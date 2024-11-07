@@ -254,7 +254,7 @@
             android:id="@+id/BehindValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前微调值"
+            android:text="当前微调值："
             app:layout_constraintBottom_toTopOf="@+id/verticalLinehoubo"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/guideline1"
