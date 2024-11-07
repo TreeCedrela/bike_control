@@ -76,6 +76,7 @@ public class HouboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(HouboActivity.this,MainActivity.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -84,6 +85,7 @@ public class HouboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(HouboActivity.this,Shoubian.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -114,7 +116,7 @@ public class HouboActivity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BleHelper.sendCommand(bluetoothGatt, "0D060000E28E",true);
+                BleHelper.sendCommand(bluetoothGatt, "0D0600000FE6",true);
 
                 if (houbbbb.currentHighlightedIndex < 11) {
                     houbbbb.lineHeights[houbbbb.currentHighlightedIndex] = houbbbb.lineHeights[houbbbb.currentHighlightedIndex] - 10;
@@ -137,6 +139,7 @@ public class HouboActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(HouboActivity.this, Houbojiaozhun.class);
+
                         startActivity(intent);
                     }
                 });

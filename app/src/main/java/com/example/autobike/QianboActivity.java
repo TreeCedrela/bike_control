@@ -43,7 +43,7 @@ public class QianboActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
 
-
+        
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
@@ -71,6 +71,7 @@ public class QianboActivity extends AppCompatActivity {
         Button reducebutton = findViewById(R.id.DreaseFrontDialNumber);//前拨界面微调值减少
         button1.setOnClickListener(view -> {
             BleHelper.sendCommand(bluetoothGatt, "110600005B73", true);
+
             if (!qianbbbb.isQianbo1Highlighted()) {
                 qianbbbb.setNextInnerRingHighlighted();
 
@@ -84,12 +85,7 @@ public class QianboActivity extends AppCompatActivity {
             }
         });
 
-        /*
-         * 前拨微调加减
-         * “+”：BleHelper.sendCommand(bluetoothGatt, "2C0600004E1C",true);
-         * “-”：BleHelper.sendCommand(bluetoothGatt, "14060000E736",true);
-         *
-         */
+
         // 新增：添加增加数值的按钮及点击事件处理
         Button addButton = findViewById(R.id.AddFrontDialNumber);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +118,7 @@ public class QianboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QianboActivity.this, HouboActivity.class);
-                //intent.putExtra("device",myDevice.getDevice());
+                intent.putExtra("device",device);
                 startActivity(intent);
 
             }
@@ -133,6 +129,7 @@ public class QianboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QianboActivity.this, Shoubian.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
 
             }
@@ -142,6 +139,7 @@ public class QianboActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QianboActivity.this, qianbogaodixianwei.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -163,25 +161,6 @@ public class QianboActivity extends AppCompatActivity {
 //        }
 //    }
 
-
-        //计算CRC校验位
-        public static String calculateCRC16 (String input){
-            // 将字符串转换为字节数组，使用 UTF-8 编码
-            byte[] data = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
-
-            int crc = 0xFFFF;  // 初始值为 0xFFFF
-            for (byte b : data) {
-                crc ^= (b << 8);  // 将当前字节的高8位与CRC异或
-                for (int i = 0; i < 8; i++) {
-                    if ((crc & 0x8000) != 0) {  // 判断最高位是否为1
-                        crc = (crc << 1) ^ 0x1021;  // 左移并与多项式0x1021异或
-                    } else {
-                        crc <<= 1;  // 否则只左移1位
-                    }
-                }
-            }
-            return String.format("%04X", crc & 0xFFFF);
-        }
 
     }
 
