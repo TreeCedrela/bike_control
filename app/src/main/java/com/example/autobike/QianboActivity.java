@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,14 +22,13 @@ import com.example.map.R;
 public class QianboActivity extends AppCompatActivity {
 
     private Qianbbbb qianbbbb;
-    private Button button1,button2,button5,button6;
-    private SeekBar seekBar;
-    private TextView textView1,textview2,devicenumber,frontdialspeed;
-    private boolean isLeftGearHighlighted=true;
-    private boolean isRightGearHighlighted=false;
+    private Button button1, button2, button5, button6;
+    private TextView textView1, frontvalue, devicenumber, frontdialspeed;
     public Button button3;
     public Button button4;
-    private TextView nowqianbo;
+    // 新增：用于存储当前的数值，代替SeekBar的进度值
+    private int frontDialNumber = 0;
+    private ImageView frontbattery;
 
 
     private BluetoothGatt bluetoothGatt;
@@ -43,7 +43,7 @@ public class QianboActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
 
-
+        
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
@@ -62,75 +62,84 @@ public class QianboActivity extends AppCompatActivity {
         });
 
 
+        textView1 = findViewById(R.id.textView);//设备信息
+        frontvalue = findViewById(R.id.FrontValue);//微调值存储
+        devicenumber = findViewById(R.id.DeviceNumber);//设备唯一码
+        frontdialspeed = findViewById(R.id.FrontDialSpeed);//前拨速别
 
-        seekBar=findViewById(R.id.weitiao);
-        textView1=findViewById(R.id.textView);//设备信息
-        textview2=findViewById(R.id.FrontValue);//微调值存储
-        devicenumber=findViewById(R.id.DeviceNumber);//设备唯一码
-        frontdialspeed=findViewById(R.id.FrontDialSpeed);//前拨速别
-        //············································
+//        // 新增：读取当前哪个圆环对应的轮子高亮并设置
+//        readAndSetHighlightedRing();
 
-        //设置seekbar的监听
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // handleSeekBarProgressChanged(progress);
-                textview2.setText(String.valueOf(progress));
 
-            }
+        qianbbbb = findViewById(R.id.qianbbbb);
+        frontbattery=findViewById(R.id.FrontBattery);//前拨电池电量
+        button1 = findViewById(R.id.button1);//减小速别
+        button2 = findViewById(R.id.button2);//增加速别
+        button5 = findViewById(R.id.button3);//单挡微调界面跳转
+        button6 = findViewById(R.id.button4);//高低限位界面跳转
+        Button addbutton = findViewById(R.id.AddFrontDialNumber);//前拨界面微调值增加
+        Button reducebutton = findViewById(R.id.DreaseFrontDialNumber);//前拨界面微调值减少
+        button1.setOnClickListener(view -> {
+            BleHelper.sendCommand(bluetoothGatt, "110600005B73", true);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {//开始触摸滑块时执行的操作
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {//停止触摸滑块时执行的操作
+            if (!qianbbbb.isQianbo1Highlighted()) {
+                qianbbbb.setNextInnerRingHighlighted();
 
             }
         });
 
-        qianbbbb=findViewById(R.id.qianbbbb);
-        button1=findViewById(R.id.button1);//减小速别
-        button2=findViewById(R.id.button2);//增加速别
-        button5=findViewById(R.id.button3);//单挡微调界面跳转
-        button6=findViewById(R.id.button4);//高低限位界面跳转
-        nowqianbo=findViewById(R.id.FrontDialSpeed);
-        button1.setOnClickListener(view ->  {
-
-            BleHelper.sendCommand(bluetoothGatt,"110600005B73",true);
-            toggleGears(true);
-            updateHighlightInfo(true);
+        button2.setOnClickListener(view -> {
+            BleHelper.sendCommand(bluetoothGatt, "12060000C0AF", true);
+            if (!qianbbbb.isQianbo3Highlighted()) {
+                qianbbbb.setNextOuterRingHighlighted();
+            }
         });
 
-        button2.setOnClickListener(view ->  {
-            BleHelper.sendCommand(bluetoothGatt, "12060000C0AF",true);
-            toggleGears(false);
-            updateHighlightInfo(false);
+
+        // 新增：添加增加数值的按钮及点击事件处理
+        Button addButton = findViewById(R.id.AddFrontDialNumber);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (frontDialNumber < 5) {
+                    frontDialNumber++;
+                    updateFrontValueText();
+                    BleHelper.sendCommand(bluetoothGatt, "2C060004E1C", true);
+                }
+            }
         });
 
-        /*
-         * 前拨微调加减
-         * “+”：BleHelper.sendCommand(bluetoothGatt, "2C0600004E1C",true);
-         * “-”：BleHelper.sendCommand(bluetoothGatt, "14060000E736",true);
-         *
-         */
-        button3=findViewById(R.id.houbo);
+        // 新增：添加减少数值的按钮及点击事件处理
+        Button decreaseButton = findViewById(R.id.DreaseFrontDialNumber);
+        decreaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (frontDialNumber > -5) {
+                    frontDialNumber--;
+                    updateFrontValueText();
+                    BleHelper.sendCommand(bluetoothGatt, "14060000E736", true);
+                }
+            }
+        });
+
+
+        button3 = findViewById(R.id.houbo);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QianboActivity.this,HouboActivity.class);
-                //intent.putExtra("device",myDevice.getDevice());
+                Intent intent = new Intent(QianboActivity.this, HouboActivity.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
 
             }
         });
 
-        button4=findViewById(R.id.shoubian);
+        button4 = findViewById(R.id.shoubian);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QianboActivity.this,Shoubian.class);
+                Intent intent = new Intent(QianboActivity.this, Shoubian.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
 
             }
@@ -139,62 +148,33 @@ public class QianboActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QianboActivity.this, qianbogaodixianwei.class);
+                Intent intent = new Intent(QianboActivity.this, qianbogaodixianwei.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
 
+
+//    private void readAndSetHighlightedRing() {//获取前拨速别
+//        String command = "11030000" + calculateCRC16("11030000");
+//        BleHelper.sendCommand(bluetoothGatt, command, true);
+//
+//
+//        int highlightedRingIndex = BleCallback.highlightedRingIndex;
+//
+//        if (highlightedRingIndex == 0) {
+//            qianbbbb.setQianbo1Highlighted(true);
+//        } else if (highlightedRingIndex == 1) {
+//            qianbbbb.setQianbo2Highlighted(true);
+//        } else if (highlightedRingIndex == 2) {
+//            qianbbbb.setQianbo3Highlighted(true);
+//        }
+//    }
+
+
     }
 
-    private void handleSeekBarProgressChanged(int progress){
-        if (isLeftGearHighlighted&&progress==seekBar.getMax()){
-            toggleGears(false);
-            updateHighlightInfo(false);
-
-        }else if (isRightGearHighlighted&&progress==seekBar.getMin()) {
-            toggleGears(true);
-            updateHighlightInfo(true);
-        }
+    private void updateFrontValueText() {
+        frontvalue.setText(BleCallback.buffer);
     }
-
-    private void toggleGears(boolean isLeftHighlighted){
-        isLeftGearHighlighted=isLeftHighlighted;
-        isRightGearHighlighted=!isLeftHighlighted;
-        qianbbbb.setQianbo1Highlighted(isLeftHighlighted);
-        qianbbbb.setQianbo2Highlighted(!isLeftHighlighted);
-    }
-
-    private void updateHighlightInfo(boolean isLeftHighlighted) {
-        if (isLeftHighlighted) {
-            nowqianbo.setText(getResources().getString(R.string.highlight_left_gear));
-           // nowqianbo.setText(BleCallback.buffer);
-
-        } else {
-            nowqianbo.setText(getResources().getString(R.string.highlight_right_gear));
-        }
-    }
-
-    //计算CRC校验位
-    public static String calculateCRC16(String input) {
-        // 将字符串转换为字节数组，使用 UTF-8 编码
-        byte[] data = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
-
-        int crc = 0xFFFF;  // 初始值为 0xFFFF
-        for (byte b : data) {
-            crc ^= (b << 8);  // 将当前字节的高8位与CRC异或
-            for (int i = 0; i < 8; i++) {
-                if ((crc & 0x8000) != 0) {  // 判断最高位是否为1
-                    crc = (crc << 1) ^ 0x1021;  // 左移并与多项式0x1021异或
-                }
-                else {
-                    crc <<= 1;  // 否则只左移1位
-                }
-            }
-        }
-        return String.format("%04X", crc & 0xFFFF);
-    }
-
-
-
-
 }

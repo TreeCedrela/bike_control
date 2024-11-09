@@ -25,11 +25,16 @@ public class BleCallback extends BluetoothGattCallback {
     public static int front_speed1 = 0;              //存储前拨速别1对应的电机转动角度
     public static int front_speed2 = 0;              //存储前拨速别2对应的电机转动角度
     public static int front_speed3 = 0;              //存储前拨速别3对应的电机转动角度
-    public static int current_front_speed = 0 ;          //存储当前速别的电机转动角度
-    public static int current_rear_speed = 0 ;
-    public static String crc = "" ;                          //存储CRC校验位
+    public static int current_front_speed = 0;          //存储当前速别的电机转动角度
+    public static int current_rear_speed = 0;
+    public static String crc = "";                          //存储CRC校验位
 
-
+    public int commandIndex = 0;
+    public final String[] commands = {  "20030000000000000000000092A3",
+            "3A0300000000000000000000B8B1",
+            "21030000000000000000000091D6",
+            "3B0300000000000000000000BBC4" };
+    private boolean isWaitingForResponse = false;
     /**
      * 连接状态改变回调
      *
@@ -71,6 +76,7 @@ public class BleCallback extends BluetoothGattCallback {
 //        //发现服务
 //        gatt.discoverServices();
 //    }
+
     /**
      * 发现服务回调
      *
@@ -89,6 +95,14 @@ public class BleCallback extends BluetoothGattCallback {
         }
 
     }
+
+    private void sendNextCommand(BluetoothGatt gatt) {
+        if (commandIndex < commands.length && !isWaitingForResponse) {
+            BleHelper.sendCommand(gatt, commands[commandIndex], true);
+            isWaitingForResponse = true;
+        }
+    }
+
     /**
      * 描述符写入回调
      *
@@ -101,12 +115,8 @@ public class BleCallback extends BluetoothGattCallback {
         if (BleConstant.ENABLE_NOTIFICATION_UUID.equals(descriptor.getUuid().toString().toLowerCase())) {
             if (status == GATT_SUCCESS) {
                 Log.d(TAG, "onDescriptorWrite: 通知开启成功");
-                //1.发装置型号
-                BleHelper.sendCommand(gatt, "20030000000000000000000092A3",true);
-                BleHelper.sendCommand(gatt, "3A0300000000000000000000B8B1",true);
-                //2.软件版本
-                BleHelper.sendCommand(gatt, "21030000000000000000000091D6",true);
-                BleHelper.sendCommand(gatt, "3B0300000000000000000000BBC4",true);
+
+                sendNextCommand(gatt);
             } else {
                 Log.d(TAG, "onDescriptorWrite: 通知开启失败");
             }
@@ -137,6 +147,7 @@ public class BleCallback extends BluetoothGattCallback {
         String command = ByteUtils.bytesToHexString(characteristic.getValue());
         if (status == BluetoothGatt.GATT_SUCCESS) {
             Log.d(TAG, "onCharacteristicWrite: 写入成功：" + command);
+            sendNextCommand(gatt);
         } else {
             Log.d(TAG, "onCharacteristicWrite: 写入失败：" + command);
         }
@@ -157,43 +168,44 @@ public class BleCallback extends BluetoothGattCallback {
 
         Log.d(TAG, "onCharacteristicChanged: 收到内容：" + content);
         //1.设备型号
-        if(content.substring(0,2).equals("20") ){
+        if (content.substring(0, 2).equals("20")) {
             buffer = "";
-            s=content.substring(4,24);
+            s = content.substring(4, 24);
             buffer = buffer + s;
-        }
-        else if(content.substring(0,2).equals("3a")){
-            s=content.substring(4,24);
+        } else if (content.substring(0, 2).equals("3a")) {
+            s = content.substring(4, 24);
             buffer = buffer + s;
             device_name = hexToAscii(s);
         }
         //2.软件版本
-        if(content.substring(0,2).equals("21") ){
+        if (content.substring(0, 2).equals("21")) {
             buffer = "";
-            s=content.substring(4,24);
+            s = content.substring(4, 24);
             buffer = buffer + s;
-        }
-        else if(content.substring(0,2).equals("3B")){
-            s=content.substring(4,24);
+        } else if (content.substring(0, 2).equals("3B")) {
+            s = content.substring(4, 24);
             buffer = buffer + s;
             app_edition = hexToAscii(s);
         }
 
         //3.当前前拨速别
-        if(content.substring(0,2).equals("15") ){
+        if (content.substring(0, 2).equals("11")) {
             buffer = "";
-            s=content.substring(4,6);
+            s = content.substring(4, 6);
             buffer = buffer + s;
-            current_front_speed = Integer.parseInt(buffer,16);
+            current_front_speed = Integer.parseInt(buffer, 16);
         }
         //4.当前后拨速别
-        if(content.substring(0,2).equals("16") ){
+        if (content.substring(0, 2).equals("16")) {
             buffer = "";
-            s=content.substring(4,6);
+            s = content.substring(4, 6);
             buffer = buffer + s;
-            current_rear_speed = Integer.parseInt(buffer,16);
+            current_rear_speed = Integer.parseInt(buffer, 16);
         }
 
+        isWaitingForResponse = false;
+        commandIndex++;
+        sendNextCommand(gatt);
 
 
         Log.d(TAG, "buffer：" + buffer);
@@ -211,26 +223,26 @@ public class BleCallback extends BluetoothGattCallback {
 
         return output.toString();
     }
+
     //计算CRC校验位
     public static String calculateCRC16(String input) {
-        // 将字符串转换为字节数组，使用 UTF-8 编码
-        byte[] data = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        byte[] data = input.getBytes();
+        int crc = 0xFFFF;
 
-        int crc = 0xFFFF;  // 初始值为 0xFFFF
         for (byte b : data) {
-            crc ^= (b << 8);  // 将当前字节的高8位与CRC异或
-            for (int i = 0; i < 8; i++) {
-                if ((crc & 0x8000) != 0) {  // 判断最高位是否为1
-                    crc = (crc << 1) ^ 0x1021;  // 左移并与多项式0x1021异或
-                }
-                else {
-                    crc <<= 1;  // 否则只左移1位
+            crc ^= (b << 8);
+
+            for (int j = 0; j < 8; j++) {
+                if ((crc & 0x8000) != 0) {
+                    crc = (crc << 1) ^ 0x1021;
+                } else {
+                    crc <<= 1;
                 }
             }
         }
-        return String.format("%04X", crc & 0xFFFF);
+
+        crc &= 0xFFFF; // 保证crc在16位以内
+        return String.format("%04X", crc ^ 0x0000); // 异或输出0x0000
     }
-
 }
-
 

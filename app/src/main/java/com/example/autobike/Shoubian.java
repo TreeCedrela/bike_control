@@ -95,6 +95,7 @@ public class Shoubian extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Shoubian.this,MainActivity.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -103,6 +104,7 @@ public class Shoubian extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Shoubian.this,HouboActivity.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
@@ -111,6 +113,7 @@ public class Shoubian extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Shoubian.this,Shoubian.class);
+                intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
