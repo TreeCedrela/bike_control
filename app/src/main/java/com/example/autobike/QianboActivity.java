@@ -1,10 +1,12 @@
 package com.example.autobike;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.example.autobike.utils.BleHelper;
 import com.example.autobike.bluetooth.BleCallback;
 import com.example.map.R;
@@ -43,12 +47,13 @@ public class QianboActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
 
-        
+
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
         BluetoothDevice device = getIntent().getParcelableExtra("device");
         //连接gatt 设置Gatt回调
+
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
         Button jumpButton=findViewById(R.id.button7);
@@ -72,13 +77,13 @@ public class QianboActivity extends AppCompatActivity {
 
 
         qianbbbb = findViewById(R.id.qianbbbb);
-        frontbattery=findViewById(R.id.FrontBattery);//前拨电池电量
-        button1 = findViewById(R.id.button1);//减小速别
-        button2 = findViewById(R.id.button2);//增加速别
-        button5 = findViewById(R.id.button3);//单挡微调界面跳转
-        button6 = findViewById(R.id.button4);//高低限位界面跳转
-        Button addbutton = findViewById(R.id.AddFrontDialNumber);//前拨界面微调值增加
-        Button reducebutton = findViewById(R.id.DreaseFrontDialNumber);//前拨界面微调值减少
+        frontbattery=findViewById(R.id.FrontBattery);                   //前拨电池电量
+        button1 = findViewById(R.id.button1);                           //减小速别
+        button2 = findViewById(R.id.button2);                           //增加速别
+        button5 = findViewById(R.id.button3);                           //单挡微调界面跳转
+        button6 = findViewById(R.id.button4);                           //高低限位界面跳转
+        Button addbutton = findViewById(R.id.AddFrontDialNumber);       //微调值增加
+        Button reducebutton = findViewById(R.id.DreaseFrontDialNumber); //微调值减少
         button1.setOnClickListener(view -> {
             BleHelper.sendCommand(bluetoothGatt, "110600005B73", true);
 
@@ -96,33 +101,33 @@ public class QianboActivity extends AppCompatActivity {
         });
 
 
-        // 新增：添加增加数值的按钮及点击事件处理
+        // 微调值增加
         Button addButton = findViewById(R.id.AddFrontDialNumber);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (frontDialNumber < 5) {
                     frontDialNumber++;
-                    updateFrontValueText();
+                    //updateFrontValueText();
                     BleHelper.sendCommand(bluetoothGatt, "2C060004E1C", true);
                 }
             }
         });
 
-        // 新增：添加减少数值的按钮及点击事件处理
+        // 微调值减少
         Button decreaseButton = findViewById(R.id.DreaseFrontDialNumber);
         decreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (frontDialNumber > -5) {
                     frontDialNumber--;
-                    updateFrontValueText();
+                    //updateFrontValueText();
                     BleHelper.sendCommand(bluetoothGatt, "14060000E736", true);
                 }
             }
         });
 
-
+        //后拨跳转按钮
         button3 = findViewById(R.id.houbo);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +138,7 @@ public class QianboActivity extends AppCompatActivity {
 
             }
         });
-
+        //手边跳转按钮
         button4 = findViewById(R.id.shoubian);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override

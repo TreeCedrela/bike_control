@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
                             if(remember.isChecked()){
                                 mHelper.remember(strUserName);
                             }
-                            Intent intent = new Intent(MainActivity.this, QianboActivity.class);
+                            Intent intent = new Intent(MainActivity.this, ConnectActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, "请输入正确的用户名或密码！", Toast.LENGTH_SHORT).show();

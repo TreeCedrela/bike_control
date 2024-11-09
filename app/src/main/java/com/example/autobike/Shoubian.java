@@ -52,26 +52,17 @@ public class Shoubian extends AppCompatActivity {
         });
 
         //读左手变当前键位值
-        BleHelper.sendCommand(gatt, "28030000"+crc,true);
+        //BleHelper.sendCommand(gatt, "28030000"+crc,true);
 
         //读右手变当前键位值
-        BleHelper.sendCommand(gatt, "29030000"+crc,true);
+        //BleHelper.sendCommand(gatt, "29030000"+crc,true);
 
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
         BluetoothDevice device = getIntent().getParcelableExtra("device");
         //连接gatt 设置Gatt回调
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
         swapButton=findViewById(R.id.swapBUtton);
@@ -87,19 +78,21 @@ public class Shoubian extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Shoubian.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Shoubian.this,MainActivity.class);
                 intent.putExtra("device",device);
                 startActivity(intent);
             }
         });
 
+        //跳转前拨
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Shoubian.this,QianboActivity.class);
+                intent.putExtra("device",device);
+                startActivity(intent);
+            }
+        });
+        //跳转后拨
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,12 +118,12 @@ public class Shoubian extends AppCompatActivity {
                 int icon1Top=icon1.getTop();
                 int icon2Left=icon2.getLeft();
                 int icon2Top=icon2.getTop();
-                BleHelper.sendCommand(bluetoothGatt, "2A0600006985",true);
+                //BleHelper.sendCommand(bluetoothGatt, "2A0600006985",true);
                 icon1.layout(icon2Left,icon2Top,icon2Left+icon1.getWidth(),icon2Top+icon1.getWidth());
                 icon2.layout(icon1Left,icon1Top,icon1Left+icon2.getWidth(),icon1Top+icon2.getWidth());
 
                 //左右手变控制互换（写）
-                BleHelper.sendCommand(gatt, "2A060100"+crc,true);
+                //BleHelper.sendCommand(gatt, "2A060100"+crc,true);
 
             }
         });

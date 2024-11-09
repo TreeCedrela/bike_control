@@ -85,7 +85,7 @@ public class HouboActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HouboActivity.this,MainActivity.class);
+                Intent intent=new Intent(HouboActivity.this,QianboActivity.class);
                 intent.putExtra("device",device);
                 startActivity(intent);
             }
@@ -107,6 +107,7 @@ public class HouboActivity extends AppCompatActivity {
             }
         });
 
+        //档位“-”
         leftButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -122,7 +123,7 @@ public class HouboActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //档位“+”
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -47,9 +47,7 @@
         android:theme="@style/Theme.Map"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
-        <activity
-            android:name=".QianboLowerRejection"
-            android:exported="false" />
+
         <activity
             android:name="com.example.autobike.MainActivity"
             android:exported="true">
