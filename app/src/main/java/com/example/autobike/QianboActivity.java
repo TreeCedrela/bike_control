@@ -37,7 +37,7 @@ public class QianboActivity extends AppCompatActivity {
     private EditText etCommand;
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
