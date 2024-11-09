@@ -1,10 +1,12 @@
 package com.example.autobike;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.example.autobike.utils.BleHelper;
 import com.example.autobike.bluetooth.BleCallback;
 import com.example.map.R;
@@ -43,12 +47,22 @@ public class QianboActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
 
-        
+
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
         BluetoothDevice device = getIntent().getParcelableExtra("device");
         //连接gatt 设置Gatt回调
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
         Button jumpButton=findViewById(R.id.button7);
