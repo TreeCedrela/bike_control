@@ -142,6 +142,7 @@
             android:id="@+id/icon1"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:contentDescription="left"
             android:src="@drawable/iconhou"
             android:paddingStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -154,6 +155,7 @@
             android:id="@+id/icon2"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:contentDescription="right"
             android:src="@drawable/iconqian"
             android:paddingEnd="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/icon1"
@@ -161,12 +163,13 @@
             app:layout_constraintStart_toEndOf="@+id/icon1"
             app:layout_constraintTop_toTopOf="@+id/icon1"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="battery"
             app:srcCompat="@drawable/battery"
             tools:layout_editor_absoluteX="123dp"
             tools:layout_editor_absoluteY="77dp"

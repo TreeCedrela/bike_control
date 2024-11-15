@@ -1,5 +1,6 @@
 package com.example.autobike;
 
+import static androidx.databinding.library.baseAdapters.BR.device;
 import static com.example.autobike.bluetooth.BleCallback.crc;
 
 import android.Manifest;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,13 +33,11 @@ import com.example.autobike.bluetooth.BleCallback;
 
 public class Shoubian extends AppCompatActivity {
 
-    private Button swapButton, button1, button2, button3;
     private ImageView icon1, icon2;
 
     private BluetoothGatt bluetoothGatt;
     private BluetoothGatt gatt;
     private boolean isConnected = false;
-    private BleCallback bleCallback;
     private EditText etCommand;
 
     @Override
@@ -57,20 +57,30 @@ public class Shoubian extends AppCompatActivity {
         //读右手变当前键位值
         //BleHelper.sendCommand(gatt, "29030000"+crc,true);
 
-        //初始化
-        bleCallback = new BleCallback();
-        //获取上个页面传递过来的设备
-        BluetoothDevice device = getIntent().getParcelableExtra("device");
-        //连接gatt 设置Gatt回调
 
-        bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
-        swapButton=findViewById(R.id.swapBUtton);
+//        //初始化
+//        BleCallback bleCallback = new BleCallback();
+//        //获取上个页面传递过来的设备
+//        BluetoothDevice device = getIntent().getParcelableExtra("device");
+//        if (device == null) {
+//            Toast.makeText(this, "设备信息缺失", Toast.LENGTH_SHORT).show();
+//            finish();
+//            return;
+//        }
+//
+//
+//        //连接gatt 设置Gatt回调
+//
+//
+//        bluetoothGatt = device.connectGatt(this, false, bleCallback);
+
+        Button swapButton = findViewById(R.id.swapBUtton);
         icon1=findViewById(R.id.icon1);
         icon2=findViewById(R.id.icon2);
-        button1=findViewById(R.id.qianbo);
-        button2=findViewById(R.id.houbo);
-        button3=findViewById(R.id.shoubian);
+        Button button1 = findViewById(R.id.qianbo);
+        Button button2 = findViewById(R.id.houbo);
+        Button button3 = findViewById(R.id.shoubian);
 
         Button jumpButton=findViewById(R.id.button5);
 
