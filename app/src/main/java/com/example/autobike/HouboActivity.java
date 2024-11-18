@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ import com.example.map.R;
 
 public class HouboActivity extends AppCompatActivity {
     private Houbbbb houbbbb;//用于储存每根线的状态
-    private Button leftButton,rightButton,button1,button3,button7,button8;
+    private Button button1,button3,button7,button8;
     private TextView BehindDialSpeed,BehindValue,Behinddevicenumber;
     private ImageView behindbattery;
 
@@ -36,7 +37,7 @@ public class HouboActivity extends AppCompatActivity {
     private BleCallback bleCallback;
     private EditText etCommand;
 
-
+    private int behindDialNumber = 0;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -69,16 +70,16 @@ public class HouboActivity extends AppCompatActivity {
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
         houbbbb=findViewById(R.id.houbbbb);
-        leftButton=findViewById(R.id.BehindReduceButton);
-        rightButton=findViewById(R.id.BehindAddButton);
+        ImageButton leftButton=findViewById(R.id.BehindReduceButton);
+        ImageButton rightButton=findViewById(R.id.BehindAddButton);
         button3=findViewById(R.id.shoubian);
         button1=findViewById(R.id.qianbo);
         BehindDialSpeed=findViewById(R.id.BehindDialSpeed);
         BehindValue=findViewById(R.id.BehindValue);//后拨校准
         button7=findViewById(R.id.buttonhoubo1);
         button8=findViewById(R.id.buttonhoubojiaozhun);//校准界面跳转
-        Button addbehindvale=findViewById(R.id.AddBehindValue);//增加微调值
-        Button reducebehindvale=findViewById(R.id.DreaseBehindValue);//微调值减小
+        ImageButton addbehindvale=findViewById(R.id.AddBehindValue);//增加微调值
+        ImageButton reducebehindvale=findViewById(R.id.DreaseBehindValue);//微调值减小
         behindbattery=findViewById(R.id.BehindBattery);//后拨电池
         Behinddevicenumber=findViewById(R.id.DeviceNumberBehind);//设备型号
 
@@ -139,7 +140,33 @@ public class HouboActivity extends AppCompatActivity {
             }
         });
 
+        addbehindvale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (behindDialNumber < 5) {
+                    behindDialNumber++;
+                    updateFrontValueText();
+                    //BleHelper.sendCommand(bluetoothGatt, "2C060004E1C", true);
+                }
+            }
+        });
 
+
+        reducebehindvale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (behindDialNumber > -5) {
+                    behindDialNumber--;
+                    updateFrontValueText();
+                    //BleHelper.sendCommand(bluetoothGatt, "14060000E736", true);
+                }
+            }
+        });
+
+    }
+
+    private void updateFrontValueText() {
+        BehindValue.setText("当前微调值:"+behindDialNumber);
     }
 
     private void showAlertDialog() {
