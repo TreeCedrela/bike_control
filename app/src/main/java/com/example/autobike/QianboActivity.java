@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,17 +19,20 @@ import com.example.autobike.utils.BleHelper;
 import com.example.autobike.bluetooth.BleCallback;
 import com.example.map.R;
 
+import android.util.Log;
+
 
 public class QianboActivity extends AppCompatActivity {
 
     private Qianbbbb qianbbbb;
-    private Button button1, button2, button5, button6;
+    private Button  button5, button6;
     private TextView textView1, frontvalue, devicenumber, frontdialspeed;
     public Button button3;
     public Button button4;
     // 新增：用于存储当前的数值，代替SeekBar的进度值
     private int frontDialNumber = 0;
     private ImageView frontbattery;
+    private ImageButton button1,button2;
 
 
     private BluetoothGatt bluetoothGatt;
@@ -43,7 +47,7 @@ public class QianboActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.map.R.layout.activity_qianbo);
 
-        
+
         //初始化
         bleCallback = new BleCallback();
         //获取上个页面传递过来的设备
@@ -51,15 +55,15 @@ public class QianboActivity extends AppCompatActivity {
         //连接gatt 设置Gatt回调
         bluetoothGatt = device.connectGatt(this, false, bleCallback);
 
-        Button jumpButton=findViewById(R.id.button7);
+        //Button jumpButton=findViewById(R.id.button7);
 
-        jumpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(QianboActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
+//        jumpButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(QianboActivity.this, MapActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         textView1 = findViewById(R.id.textView);//设备信息
@@ -77,8 +81,11 @@ public class QianboActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);//增加速别
         button5 = findViewById(R.id.button3);//单挡微调界面跳转
         button6 = findViewById(R.id.button4);//高低限位界面跳转
-        Button addbutton = findViewById(R.id.AddFrontDialNumber);//前拨界面微调值增加
-        Button reducebutton = findViewById(R.id.DreaseFrontDialNumber);//前拨界面微调值减少
+
+        //检查button1、2是否显示 在日志中打印
+        Log.d("Debug", "Button1 visibility: " + button1.getVisibility());
+        Log.d("Debug", "Button1 position: " + button1.getX() + ", " + button1.getY());
+
         button1.setOnClickListener(view -> {
             BleHelper.sendCommand(bluetoothGatt, "110600005B73", true);
 
@@ -97,7 +104,7 @@ public class QianboActivity extends AppCompatActivity {
 
 
         // 新增：添加增加数值的按钮及点击事件处理
-        Button addButton = findViewById(R.id.AddFrontDialNumber);
+        ImageButton addButton = findViewById(R.id.AddFrontDialNumber);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +117,7 @@ public class QianboActivity extends AppCompatActivity {
         });
 
         // 新增：添加减少数值的按钮及点击事件处理
-        Button decreaseButton = findViewById(R.id.DreaseFrontDialNumber);
+        ImageButton decreaseButton = findViewById(R.id.DreaseFrontDialNumber);
         decreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +182,6 @@ public class QianboActivity extends AppCompatActivity {
     }
 
     private void updateFrontValueText() {
-        frontvalue.setText(BleCallback.buffer);
+        frontvalue.setText("当前微调值:"+frontDialNumber);
     }
 }
