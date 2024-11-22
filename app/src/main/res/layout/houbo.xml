@@ -268,13 +268,7 @@
             app:layout_constraintEnd_toEndOf="@+id/guideline"
             app:layout_constraintBottom_toTopOf="@+id/shoubian"/>
 
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/battery"
-            app:layout_constraintStart_toEndOf="@id/textView2"
-            app:layout_constraintBottom_toTopOf="@+id/qianbo"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

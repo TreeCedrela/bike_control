@@ -175,6 +175,6 @@ public class QianboActivity extends AppCompatActivity {
     }
 
     private void updateFrontValueText() {
-        frontvalue.setText(BleCallback.buffer);
+        frontvalue.setText("当前微调值:"+frontDialNumber);
     }
 }

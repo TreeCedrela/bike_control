@@ -118,12 +118,11 @@ public class Shoubian extends AppCompatActivity {
                 int icon1Top=icon1.getTop();
                 int icon2Left=icon2.getLeft();
                 int icon2Top=icon2.getTop();
-                //BleHelper.sendCommand(bluetoothGatt, "2A0600006985",true);
+                BleHelper.sendCommand(bluetoothGatt, "2A0600006985",true);
                 icon1.layout(icon2Left,icon2Top,icon2Left+icon1.getWidth(),icon2Top+icon1.getWidth());
                 icon2.layout(icon1Left,icon1Top,icon1Left+icon2.getWidth(),icon1Top+icon2.getWidth());
 
-                //左右手变控制互换（写）
-                //BleHelper.sendCommand(gatt, "2A060100"+crc,true);
+
 
             }
         });
