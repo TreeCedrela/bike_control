@@ -202,15 +202,17 @@
 
         <com.example.autobike.Houbbbb
             android:id="@+id/houbbbb"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.55"
+            app:layout_constraintHeight_percent="0.3"
             android:layout_centerVertical="true"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/houbo"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.1" />
 
         <ImageButton
             android:id="@+id/BehindReduceButton"
@@ -222,7 +224,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/houbbbb"
             app:layout_constraintEnd_toStartOf="@+id/houbbbb"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/houbo"
+            app:layout_constraintTop_toTopOf="@+id/houbbbb"
             />
         <ImageButton
             android:id="@+id/BehindAddButton"
@@ -234,7 +236,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/houbbbb"
             app:layout_constraintEnd_toEndOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/houbbbb"
-            app:layout_constraintTop_toBottomOf="@+id/houbo"
+            app:layout_constraintTop_toTopOf="@+id/houbbbb"
             />
 
         <TextView
