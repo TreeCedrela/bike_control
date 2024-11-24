@@ -15,6 +15,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,12 +70,12 @@ public class overActivity extends AppCompatActivity {
         TextView VAltitude = findViewById(R.id.altitude);
         TextView VDistanceSum = findViewById(R.id.distanceSum);
 
-//        Button cross = findViewById(R.id.imageButton4);
-//
-//        cross.setOnClickListener(v->{
-//            Intent intent =new Intent(overActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        });
+        ImageButton cross = findViewById(R.id.imageButton4);
+
+        cross.setOnClickListener(v->{
+            Intent intent =new Intent(overActivity.this,MapActivity.class);
+            startActivity(intent);
+        });
 
         VAverageSpeed.setText(String.format("%4.2f",averageSpeed));
         VAltitude.setText(String.format("%4.2f",altitude));
@@ -172,7 +175,7 @@ public class overActivity extends AppCompatActivity {
                     saveBitmapToFile(bitmap);
                 } else {
                     // 截图失败
-                    Toast.makeText(overActivity.this, "截图失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(overActivity.this, "截图", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -187,15 +190,15 @@ public class overActivity extends AppCompatActivity {
             fos.close();
 
             //如果是在当前界面继续操作，则如下：
-            //showScreenshot(bitmap);不要下面传递的部分
+//            showScreenshot(bitmap);
 
             // 将文件路径传递到下一个Activity
-            Intent intent = new Intent(overActivity.this, firstActivity.class);
-            intent.putExtra("screenshot_path", file.getAbsolutePath());
-           startActivity(intent);
+//            Intent intent = new Intent(overActivity.this, firstActivity.class);
+//            intent.putExtra("screenshot_path", file.getAbsolutePath());
+//           startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(overActivity.this, "保存截图失败", Toast.LENGTH_SHORT).show();
+           Toast.makeText(overActivity.this, "保存截图失败", Toast.LENGTH_SHORT).show();
         }
     }
 

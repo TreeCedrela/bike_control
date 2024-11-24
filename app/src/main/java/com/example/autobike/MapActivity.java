@@ -50,9 +50,13 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
         Button beginBt = findViewById(R.id.startButton);
         Button continueLastTimeBt = findViewById(R.id.continueLastTime);
         Button sportRecordBt = findViewById(R.id.sport_record_button);
+//        Button jumpBlueprint=findViewById(R.id.blueprint_button);
 
-        // TODO: 2024/9/7 feat blueprint view jump
-        Button blueprintBt = findViewById(R.id.blueprint_button);
+
+//        jumpBlueprint.setOnClickListener(v -> {
+//            Intent intent = new Intent(MapActivity.this, QianboActivity.class);
+//            startActivity(intent);
+//        });
 
         beginBt.setOnClickListener(v -> {
             Intent intent = new Intent(MapActivity.this, beginActivity.class);

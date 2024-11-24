@@ -1,11 +1,13 @@
 package com.example.autobike;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,22 +28,20 @@ public class recordActivity extends AppCompatActivity {
     private ItemAdapter adapter;
     private List<SportRecord> dataList;
 
-    private Button backButton;
-
     @SuppressLint("WrongViewCast")
     private  RecordDBHelper recordDBHelper;
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
-//        backButton=findViewById(R.id.imageButton);
-//        backButton.setOnClickListener(v->{
-//            Intent intent=new Intent(recordActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        });
+        ImageButton backButton = findViewById(R.id.imageButton);
+        backButton.setOnClickListener(v->{
+            Intent intent=new Intent(recordActivity.this,MapActivity.class);
+            startActivity(intent);
+        });
 
 
 

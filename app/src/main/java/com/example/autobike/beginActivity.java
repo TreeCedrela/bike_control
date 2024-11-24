@@ -147,6 +147,8 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
         sportRecord=new SportRecord("pic/"+LocalDate.now().toString(),0,0,0,0, LocalDate.now(),0);
 
         recordDBHelper=RecordDBHelper.getInstance(this);
+        recordDBHelper.OpenRead();
+        recordDBHelper.OpenWrite();
         recordDBHelper.InsertRecord(sportRecord);
 
         initMap(savedInstanceState, this, mMapView, aMap, null);
@@ -181,6 +183,8 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         sportRecord.setTimeDate(LocalDate.now());
                         sportRecord.setAverageSpeed(avg_speed);
                         // update
+
+                        recordDBHelper.OpenWrite();
                         recordDBHelper.UpdateRecord(sportRecord);
                     } else {
                         Log.i("BeginActivity", "onDistanceSearched: no distance,try move");
@@ -282,6 +286,7 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                     sportRecord.setAverageSpeed(avg_speed);
                     sportRecord.setAltitude((float) distance);
                     //update
+                    recordDBHelper.OpenWrite();
                     recordDBHelper.UpdateRecord(sportRecord);
 
                     startActivity(intent);

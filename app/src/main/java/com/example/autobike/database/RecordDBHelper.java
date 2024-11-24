@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.autobike.Util;
 import com.example.autobike.entity.SportRecord;
@@ -67,25 +68,31 @@ public class RecordDBHelper extends SQLiteOpenHelper {
     //创建数据库表
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        Log.d("Database", "onCreate called");
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
                 " id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                Util.DistanceSum + "  VARCHAR NOT NULL," +
-                Util.AverageSpeed+" VARCHAR NOT NULL," +
-                Util.ElapsedTime+" VARCHAR NOT NULL," +
-                Util.Altitude+" VARCHAR NOT NULL," +
+                Util.DistanceSum + " VARCHAR NOT NULL," +
+                Util.AverageSpeed + " VARCHAR NOT NULL," +
+                Util.ElapsedTime + " VARCHAR NOT NULL," +
+                Util.Altitude + " VARCHAR NOT NULL," +
                 Util.TimeDate + " VARCHAR NOT NULL," +
                 Util.Status + " INTEGER NOT NULL," +
                 Util.ImageURI + " VARCHAR NOT NULL);";
         sqLiteDatabase.execSQL(sql);
+        Log.d("Database", "Table created: " + TABLE_NAME);
     }
+
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME); // 删除旧表
+        onCreate(db); // 重新创建表
     }
+
 
     //insert sport record
     public long InsertRecord(SportRecord record) {
+        onCreate(mWDB);
         ContentValues values = new ContentValues();
         values.put(Util.DistanceSum, record.getDistanceSum());
         values.put(Util.AverageSpeed, record.getAverageSpeed());
@@ -98,12 +105,19 @@ public class RecordDBHelper extends SQLiteOpenHelper {
 
     // query records list by a specific month
     public List<SportRecord> QueryRecordsByMonth(Integer month) {
-        //TODO impl it by database sql
-        String mo = month.toString();
-        Cursor cursor = mRDB.rawQuery("SELECT * FROM TABLE_NAME WHERE strftime('%m', TimeDate) = ?",new String[]{mo});
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("YYYY_MM_DD");
 
         List<SportRecord> recordList=new ArrayList<>();
+        //TODO impl it by database sql
+        String mo = month.toString();
+
+        Cursor cursor = mRDB.rawQuery("SELECT * FROM sport_record WHERE strftime('%m', TimeDate) = ?",new String[]{mo});
+        if(cursor.isBeforeFirst()){
+            return recordList;
+        }
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy_MM_dd");
+
+
         /*recordList.add(new SportRecord("/1",30.1f,1f,100f,10f,LocalDate.of(2001,1,1),0));
         recordList.add(new SportRecord("/2",30.2f,2f,200f,20f,LocalDate.of(2002,2,2),0));
         recordList.add(new SportRecord("/3",30.3f,3f,300f,30f,LocalDate.of(2003,3,3),1));*/
@@ -123,9 +137,9 @@ public class RecordDBHelper extends SQLiteOpenHelper {
     // query month list that records have
     public List<Integer> QueryMonthList(Integer id) {
         //TODO impl it by database sql
-        Cursor cursor = mRDB.rawQuery("SELECT DISTINCT strftime('%m', TimeDate) FROM TABLE_NAME",null);
-
+        Cursor cursor = mRDB.rawQuery("SELECT DISTINCT strftime('%m', TimeDate) FROM sport_record",null);
         List<Integer> monthList=new ArrayList<>();
+if(cursor.isBeforeFirst()){return  monthList;}
         /*monthList.add(7);
         monthList.add(8);
         monthList.add(9);*/
