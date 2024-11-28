@@ -168,8 +168,6 @@ public class beginActivity extends AppCompatActivity implements AMapLocationList
                         if (maxHourSpeed!=0){
                         //if item distance per second bigger than average speed cut it to be average speed
                             distance_sum += Math.min(dist, maxHourSpeed);
-                        }else{
-                            distance_sum += Math.min(dist, 0.5);
                         }
 
 
