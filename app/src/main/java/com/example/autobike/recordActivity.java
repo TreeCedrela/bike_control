@@ -20,7 +20,10 @@ import com.example.map.R;
 import com.example.autobike.database.RecordDBHelper;
 import com.example.autobike.entity.SportRecord;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class recordActivity extends AppCompatActivity {
 
@@ -52,9 +55,7 @@ public class recordActivity extends AppCompatActivity {
 
         LinearLayout monthsLayout = findViewById(R.id.monthsLayout);
         //TODO add month query
-        List<Integer> monthList = recordDBHelper.QueryMonthList(0);
-
-
+        List<Integer> monthList = IntStream.rangeClosed(1,12).boxed().collect(Collectors.toList());
         //range month list and set click listener
         for (Integer month : monthList) {
             TextView textView = new TextView(this);
