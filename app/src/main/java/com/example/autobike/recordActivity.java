@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import com.example.map.R;
 import com.example.autobike.database.RecordDBHelper;
 import com.example.autobike.entity.SportRecord;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -51,7 +49,7 @@ public class recordActivity extends AppCompatActivity {
         // 初始化数据
         RecordDBHelper recordDBHelper = RecordDBHelper.getInstance(this);
 
-        dataList=recordDBHelper.QueryRecordsByMonth(0);
+        dataList=recordDBHelper.QueryRecords();
 
         LinearLayout monthsLayout = findViewById(R.id.monthsLayout);
         //TODO add month query

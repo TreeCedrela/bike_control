@@ -104,23 +104,23 @@ public class RecordDBHelper extends SQLiteOpenHelper {
     }
 
     // query records list by a specific month
-    public List<SportRecord> QueryRecordsByMonth(Integer month) {
+    public List<SportRecord> QueryRecords() {
 
         List<SportRecord> recordList=new ArrayList<>();
         //TODO impl it by database sql
-        String mo = month.toString();
+//        String mo = month.toString();
 
-//        Cursor cursor = mRDB.rawQuery("SELECT * FROM sport_record WHERE strftime('%m', TimeDate) = ?",new String[]{mo});
-  /*      if(cursor.isBeforeFirst()){
+        Cursor cursor = mRDB.rawQuery("SELECT * FROM sport_record ",new String[]{});
+        if(cursor.isBeforeFirst()){
             return recordList;
         }
 
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy_MM_dd");
 
 
-        *//*recordList.add(new SportRecord("/1",30.1f,1f,100f,10f,LocalDate.of(2001,1,1),0));
-        recordList.add(new SportRecord("/2",30.2f,2f,200f,20f,LocalDate.of(2002,2,2),0));
-        recordList.add(new SportRecord("/3",30.3f,3f,300f,30f,LocalDate.of(2003,3,3),1));*//*
+//        recordList.add(new SportRecord("/2",30.2f,2f,200f,20f,LocalDate.of(2002,2,2),0));
+//        recordList.add(new SportRecord("/3",30.3f,3f,300f,30f,LocalDate.of(2003,3,3),1));*//*
+//        recordList.add(new SportRecord("/1",30.1f,1f,100f,10f,LocalDate.of(2001,1,1),0));
         do{
             recordList.add(new SportRecord(cursor.getString(7),
                     Float.parseFloat(cursor.getString(1)),
@@ -129,7 +129,7 @@ public class RecordDBHelper extends SQLiteOpenHelper {
                     Float.parseFloat(cursor.getString(4)),
                     LocalDate.parse(cursor.getString(5),df),
                     cursor.getInt(6)));
-        }while (cursor.moveToNext());*/
+        }while (cursor.moveToNext());
 
         return recordList;
     }
